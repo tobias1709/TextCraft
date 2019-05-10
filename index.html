@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-139357223-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'UA-139357223-1');
+    </script>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="stylesheet" type="text/css" href="style.css?v0.1.1">
+	<link href="https://fonts.googleapis.com/css?family=Fira+Sans" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
+	<title>TextCraft</title>
+</head>
+
+<body>
+	<div id="wrapper">
+		<div id="selection">
+			<div class="nameSel">
+				<h2>
+					Choose a name:
+				</h2>
+				<input id="characterName" type="text" name="fname" autofocus="autofocus" onfocus="this.select()" placeholder="Character name">
+			</div>
+			<div class="classes">
+				<div class="entry classBox">
+					<div class="flex">
+						<h3>
+							Warrior
+						</h3>
+						<img class="classImg" src="img/classes/warrior.png">
+					</div>
+					<hr>
+					<div>
+						<p class="hoverable"><span class="hoverable">Increases your ap & hp.</span>Strength: <span>3</span></p>
+						<p class="hoverable"><span class="hoverable">Increases your ap.</span>Agility: <span>1</span></p>
+						<p class="hoverable"><span class="hoverable">Increases your sp & mana.</span>Intellect: <span>0</span></p>
+						<p class="hoverable"><span class="hoverable">Increases your hp & hp regen.</span>Stamina: <span>3</span></p>
+						<button class="classbtn" id="warrior">Pick Class</button>
+					</div>
+				</div>
+				<div class="entry classBox">
+					<div class="flex">
+						<h3>
+							Hunter
+						</h3>
+						<img class="classImg" src="img/classes/hunter.png">
+					</div>
+					<hr>
+					<div>
+						<p class="hoverable"><span class="hoverable">Increases your ap & hp.</span>Strength: <span>2</span></p>
+						<p class="hoverable"><span class="hoverable">Increases your ap.</span>Agility: <span>3</span></p>
+						<p class="hoverable"><span class="hoverable">Increases your sp & mana.</span>Intellect: <span>2</span></p>
+						<p class="hoverable"><span class="hoverable">Increases your hp & hp regen.</span>Stamina: <span>3</span></p>
+						<button class="classbtn" id="hunter">Under Development</button>
+					</div>
+				</div>
+				<div class="entry classBox">
+					<div class="flex">
+						<h3>
+							Mage
+						</h3>
+						<img class="classImg" src="img/classes/mage.png">
+					</div>
+					<hr>
+					<div>
+						<p class="hoverable"><span class="hoverable">Increases your ap & hp.</span>Strength: <span>1</span></p>
+						<p class="hoverable"><span class="hoverable">Increases your ap.</span>Agility: <span>1</span></p>
+						<p class="hoverable"><span class="hoverable">Increases your sp & mana.</span>Intellect: <span>5</span></p>
+						<p class="hoverable"><span class="hoverable">Increases your hp & hp regen.</span>Stamina: <span>1</span></p>
+						<button class="classbtn" id="mage">Pick Class</button>
+					</div>
+				</div>
+				<div class="entry classBox">
+					<div class="flex">
+						<h3>
+							Rogue
+						</h3>
+						<img class="classImg" src="img/classes/rogue.png">
+					</div>
+					<hr>
+					<div>
+						<p class="hoverable"><span class="hoverable">Increases your ap & hp.</span>Strength: <span>1</span></p>
+						<p class="hoverable"><span class="hoverable">Increases your ap.</span>Agility: <span>4</span></p>
+						<p class="hoverable"><span class="hoverable">Increases your sp & mana.</span>Intellect: <span>0</span></p>
+						<p class="hoverable"><span class="hoverable">Increases your hp & hp regen.</span>Stamina: <span>2</span></p>
+						<button class="classbtn" id="rogue">Pick Class</button>
+					</div>
+				</div>
+				<div class="entry classBox">
+						<div class="flex">
+							<h3>
+								Warlock
+							</h3>
+							<img class="classImg" src="img/classes/warlock.png">
+						</div>
+						<hr>
+						<div>
+							<p class="hoverable"><span class="hoverable">Increases your ap & hp.</span>Strength: <span>1</span></p>
+							<p class="hoverable"><span class="hoverable">Increases your ap.</span>Agility: <span>1</span></p>
+							<p class="hoverable"><span class="hoverable">Increases your sp & mana.</span>Intellect: <span>5</span></p>
+							<p class="hoverable"><span class="hoverable">Increases your hp & hp regen.</span>Stamina: <span>3</span></p>
+							<button class="classbtn" id="warlock">Under Development</button>
+						</div>
+					</div>
+			</div>
+			<div class="classes">
+					<div class="entry classBox">
+						<div class="flex">
+							<h3>
+								Shaman
+							</h3>
+							<img class="classImg" src="img/classes/shaman.png">
+						</div>
+						<hr>
+						<div>
+							<p class="hoverable"><span class="hoverable">Increases your ap & hp.</span>Strength: <span>2</span></p>
+							<p class="hoverable"><span class="hoverable">Increases your ap.</span>Agility: <span>3</span></p>
+							<p class="hoverable"><span class="hoverable">Increases your sp & mana.</span>Intellect: <span>2</span></p>
+							<p class="hoverable"><span class="hoverable">Increases your hp & hp regen.</span>Stamina: <span>3</span></p>
+							<button class="classbtn" id="shaman">Under Development</button>
+						</div>
+					</div>
+					<div class="entry classBox">
+						<div class="flex">
+							<h3>
+								Druid
+							</h3>
+							<img class="classImg" src="img/classes/druid.png">
+						</div>
+						<hr>
+						<div>
+							<p class="hoverable"><span class="hoverable">Increases your ap & hp.</span>Strength: <span>2</span></p>
+							<p class="hoverable"><span class="hoverable">Increases your ap.</span>Agility: <span>2</span></p>
+							<p class="hoverable"><span class="hoverable">Increases your sp & mana.</span>Intellect: <span>3</span></p>
+							<p class="hoverable"><span class="hoverable">Increases your hp & hp regen.</span>Stamina: <span>3</span></p>
+							<button class="classbtn" id="druid">Under Development</button>
+						</div>
+					</div>
+					<div class="entry classBox">
+						<div class="flex">
+							<h3>
+								Paladin
+							</h3>
+							<img class="classImg" src="img/classes/paladin.png">
+						</div>
+						<hr>
+						<div>
+							<p class="hoverable"><span class="hoverable">Increases your ap & hp.</span>Strength: <span>4</span></p>
+							<p class="hoverable"><span class="hoverable">Increases your ap.</span>Agility: <span>1</span></p>
+							<p class="hoverable"><span class="hoverable">Increases your sp & mana.</span>Intellect: <span>3</span></p>
+							<p class="hoverable"><span class="hoverable">Increases your hp & hp regen.</span>Stamina: <span>3</span></p>
+							<button class="classbtn" id="paladin">Under Development</button>
+						</div>
+					</div>
+					<div class="entry classBox">
+						<div class="flex">
+							<h3>
+								Priest
+							</h3>
+							<img class="classImg" src="img/classes/priest.png">
+						</div>
+						<hr>
+						<div>
+							<p class="hoverable"><span class="hoverable">Increases your ap & hp.</span>Strength: <span>1</span></p>
+							<p class="hoverable"><span class="hoverable">Increases your ap.</span>Agility: <span>1</span></p>
+							<p class="hoverable"><span class="hoverable">Increases your sp & mana.</span>Intellect: <span>5</span></p>
+							<p class="hoverable"><span class="hoverable">Increases your hp & hp regen.</span>Stamina: <span>2</span></p>
+							<button class="classbtn" id="priest">Under Development</button>
+						</div>
+					</div>
+				</div>
+		</div>
+
+		<div id="game">
+			<div id="title">
+			</div>
+			<div class="invQ">
+				<div id="levelSel">
+					<button>Elwynn Forest</button>
+					<button>Westfall</button>
+					<button>Duskwood</button>
+					<button>Deadmines (D)</button>
+					<button>Wetlands</button>
+					<button>Hillsbrad foothills</button>
+					<button>Thousand Needles</button>
+					<button>Maraudon (D)</button>
+					<button>Stranglethorn Vale</button>
+					<button>Tanaris</button>
+				</div>
+			</div>
+			<div class="place">
+				<div class="resource box">
+					<h3 style="margin: -10px 0" id="inputName">Character Name</h3>
+					<h3>Level <span id="level"></span> <span id="classPicked"></span></h3>
+					
+					<div class="border hp"><p class="index">Health: <span id="hp"></span> / <span id="hpMax"></span></p><div id="hpBar"></div></div>
+					<div class="border mana"><p class="index">Mana: <span id="mana"></span> / <span id="manaMax"></span></p><div id="manaBar"></div></div>
+					<div class="border energy"><p class="index">Energy: <span id="energy"></span> / <span id="energyMax"></span><div id="energyBar"></div></div>
+					<div class="border combo"><p class="index">Combo Points: <span id="comboPoints"></span> / 5</p><div id="comboPointsBar"></div></div>
+					<div class="border rage"><p class="index">Rage: <span id="rage"></span> / <span id="rageMax"></span><div id="rageBar"></div></div>
+					<p class="atk">Attack Power: <span id="atkMax"></span></p>
+					<p class="atk">Spell Power: <span id="spellAtkMax"></span></p>
+					<div class="title">
+					<h3>Talent Points: <span id="sp"></span></h3>
+					
+					</div>
+					<div class="stats">
+						<div>
+							<p class="hoverable"><span class="hoverable">Increases your ap & hp.</span>Strength: <span id="str"></span></p>
+							<p class="hoverable"><span class="hoverable">Increases your ap.</span>Agility: <span id="agi"></span></p>
+							<p class="hoverable"><span class="hoverable">Increases your sp & mana.</span>Intellect: <span id="int"></span></p>
+							<p class="hoverable"><span class="hoverable">Increases your hp & hp regen.</span>Stamina: <span id="sta"></span></p>
+						</div>
+						<div class="plus">
+							<button id="plus1">+</button>
+							<button id="plus2">+</button>
+							<button id="plus3">+</button>
+							<button id="plus4">+</button>
+						</div>
+					</div>
+					<p>Money: <span id="gold"></span><img style="margin: 0 0 -5px 0px;" src="img/misc/gold.png"> <span id="silver">33</span> <img style="filter:grayscale(100%); margin: 0 8px -5px -8px;" src="img/misc/gold.png"><span id="copper">43</span> <img style="filter: hue-rotate(695deg); margin: 0 0 -5px -8px;" src="img/misc/gold.png"></p>
+				</div>
+				
+				<div id="log" class="box">
+						<h2 id="map"></h2>
+					<div class="console">
+						<p><span>Welcome to TextCraft.</span></p>
+					</div>
+					<div class="console_buttons">
+						<input id="chatBox" type="text" placeholder="Message:">
+						<button id="fight">Explore</button>
+						<div class="console_buttons--actions">
+								<div class="border exp"><p class="index">Exp: <span id="exp"></span> / <span id="expMax"></span></p><div id="expBar"></div></div>
+						</div>
+							<div id="abilities">
+								<div class="relative" id="auto">
+									<img src="img/abilities/auto.png">
+									<p class="abso">1</p>
+								</div>
+								<div class="rogueA relative" id="sins">
+									<img src="img/abilities/sins.png" >
+									<p class="abso">2</p>
+								</div>
+
+								<div class="mageA relative" id="fireball">
+									<img src="img/abilities/fireball.png" >
+									<p class="abso">2</p>
+								</div>
+								
+								<div class="warriorA relative" id="hs">
+									<img src="img/abilities/heroic.png">
+									<p class="abso">2</p>
+								</div>
+								
+								<div class="rogueA relative"  id="evis">
+									<img src="img/abilities/evis.png">
+									<p class="abso">3</p>
+								</div>
+
+								<div class="mageA relative"  id="frostbolt">
+									<img src="img/abilities/frostbolt.png">
+									<p class="abso">3</p>
+								</div>
+								
+								<div class="warriorA relative" id="ms">
+									<img src="img/abilities/mortal.png">
+									<p class="abso">3</p>
+								</div>
+								
+								<div class="relative" id="auto">
+									<img src="img/creatures/dev.png">
+									<p class="abso">4</p>
+								</div>
+								
+								<div class="relative" id="auto">
+									<img src="img/creatures/dev.png">
+									<p class="abso">5</p>
+								</div>
+								
+								<div class="relative" id="#">
+									<img src="img/creatures/dev.png">
+									<p class="abso">6</p>
+								</div>
+
+								<div class="relative" id="run">
+									<img src="img/abilities/flee.png" id="flee">
+									<p class="abso">7</p>
+								</div>
+								
+								<div class="relative" id="hPotUse">
+									<img src="img/misc/55_potion_potion.png">
+									<p class="abso">8</p>
+									<div class="amount">
+										<p class="hoverable"><span class="hoverable">Recover 40% of your hp.</span><span id="hPot"></span></p>
+									</div>	
+								</div>
+								
+								<div class="relative" id="mPotUse">
+									<img src="img/misc/76_potion_potion.png">
+									<p class="abso">9</p>
+									<div class="amount">
+										<p class="hoverable"><span class="hoverable">Recover 40% of your mana.</span><span id="mPot"></span></p>
+									</div>
+								</div>
+								
+								<div class="relative" id="foodUse">
+									<img src="img/misc/Food_16.png">
+									<p class="abso">=</p>
+									<div class="amount">
+										<p class="hoverable"><span class="hoverable">Recover 70% of your hp.</span><span id="food"></span></p>
+									</div>
+								</div>
+								
+								<div class="relative" id="waterUse">
+									<img src="img/misc/07_4.png">
+									<p class="abso">+</p>
+									<div class="amount">
+										<p class="hoverable"><span class="hoverable">Recover 70% of your mana.</span><span id="water"></span></p>
+									</div>
+								</div>		
+							</div>
+					</div>
+				</div>
+				<div>
+					<div style="align-self: flex-start;" class="resource box">
+						<div id="creature" >
+							<div class="creatureProfile">
+								<div>
+									<h3>Level <span id="creatureLevel"></span></h3>
+								
+									<p><span id="creatureName"></span></p>
+								</div>
+								<div>
+									<img id="creatureImg" src="img/creatures/murloc.png">
+								</div>
+							</div>
+							<div class="border creatureHp"><p class="index">HP: <span id="creatureHp"></span> / <span id="creatureHpMax"></span></p><div id="creatureHpBar"></div></div>
+							<p>Attack: <span id="creatureAtk"></span>&nbsp-&nbsp<span id="creatureAtkMax"></span></p>
+							<div class="border creatureSpecial"><p class="index"><span id="specialAttack"></span> <span id="specialRound"></span> / <span id="specialRoundMax"></span></p><div id="specialRoundBar"></div></div>
+						</div>
+						
+					</div>
+
+					<div id="questlog" class="box">
+						<h3>Quest Log</h3>
+						
+						<div class="stats">
+							<div class="objective">
+								<p>Kill 6 Skeletons: </p>
+								<p>Kill 7 Spiders: </p>
+								<p>Kill 6 Bandits: </p>
+							</div>
+							<div style="display: flex; flex-direction: column;">
+								<button id="quest_btn_1">Deliver</button>
+							</div>
+							<div class="questAmount">
+								<p><span id="quest_obj_1"></span> / <span id="quest_req_1"></span></p>
+								<p><span id="quest_obj_2"></span> / <span id="quest_req_2"></span></p>
+								<p<span id="quest_obj_3"></span> / <span id="quest_req_3"></span></p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				
+
+			</div>
+			
+			<div style="margin-bottom: 0;" class="invQ">
+			
+				<div id="levelSel">
+					<button>Searing Gorge</button>
+					<button>Stratholme (D)</button>
+					<button>Un'goro Crater</button>
+					<button>Burning Steppes</button>
+					<button>Western Plaguelands</button>
+					<button>Blackrock Spire (D)</button>
+					<button>Eastern Plaguelands</button>
+					<button>Silithus</button>
+					<button>Molten Core (R)</button>
+					<button>Blackwing Lair (R)</button>
+				</div>
+			</div>
+			<div class="place">
+			
+			
+			
+				
+
+				<div id="equipment" class="box">
+					<h3>Equipment</h3>
+					
+					<div class="stats">
+						<div class="equipSlot">
+							<p>Helm: </p>
+							<p>Armor: </p>
+							<p>Weapon: </p>
+						</div>
+						<div class="equipped">
+							<p id="helm"></p>
+							<p id="chest"></p>
+							<p id="weapon"></p>
+						</div>
+					</div>
+				</div>
+
+				<div class="box">
+						<h2 style="font-size: 2.2em; padding-bottom: 15px; letter-spacing: 5px;">Leaderboard</h2>
+						<p>1. <span id="first">Defuzed</span> <span id="firstLvl">59</span> <span id="firstClass">Hunter</span></p>
+						<p>2. <span id="second">Ariande</span> <span id="secondLvl">53</span> <span id="secondClass">Rogue</span></p>
+						<p>3. <span id="third">Vildpus</span> <span id="thirdLvl">41</span> <span id="thirdClass">Mage</span></p>
+						<p>4. <span id="four">Bobby</span> <span id="fourLvl">32</span> <span id="fourClass">Warrior</span></p>
+						<p>5. <span id="five">Nixx</span> <span id="fiveLvl">17</span> <span id="fiveClass">Rogue</span></p>
+					</div>
+
+				<div class="box">
+						<h3>Shop</h3>
+						
+						<div class="stats">
+								<div>
+								<p class="hoverable"><span class="hoverable">Recover 40% of your hp.</span>Health Potion: <span id="hPotBuySel"></span><img style="margin: 0 0 -5px 0px;" src="img/misc/gold.png"></p>
+								<p class="hoverable"><span class="hoverable">Recover 40% of your hp.</span>Mana Potion: <span id="mPotBuySel"></span><img style="margin: 0 0 -5px 0px;" src="img/misc/gold.png"></p>
+								<p class="hoverable"><span class="hoverable">Recover 70% of your hp.</span>Food: <span id="foodBuySel"></span><img style="margin: 0 0 -5px 0px;" src="img/misc/gold.png"></p>
+								<p class="hoverable"><span class="hoverable">Recover 70% of your hp.</span>Water: <span id="waterBuySel"></span><img style="margin: 0 0 -5px 0px;" src="img/misc/gold.png"></p>
+							</div>
+							<div class="plus">
+								<button id="hPotBuy">Buy</button>
+								<button id="mPotBuy">Buy</button>
+								<button id="foodBuy">Buy</button>
+								<button id="waterBuy">Buy</button>
+							</div>
+						</div>
+					</div>
+			</div>
+			<p style="position: absolute; top: 100px; left: 30px;">
+				<a href="https://www.barrens.chat"><img src="img/bc.png"></a>
+			</p>
+
+			<div class="local">
+				<button id="reset" style="position: absolute; top: 20px; right: 10px;"> reset</button>
+				<a href="changelog.html"><button id="reset" style="position: absolute; top: 20px; left: 10px;">Changelog</button></a>
+			</div>
+		</div>
+	</div>
+	<script src="creature_OOP.js"></script>
+	<script src="index.js"></script>
+</body>
+</html>
+
