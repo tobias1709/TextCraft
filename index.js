@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 	let energy;
 	let energyMax;
 	let energyBar;
+	
 
 	// Inventory
 	let hPot;
@@ -289,8 +290,11 @@ document.addEventListener("DOMContentLoaded", () =>{
 	let timeout = true;
 	let mapArrived = false;
 
+	// Quests
+	// Havn't done this part yet
 
-	// JSON SAVE
+
+	// JSON LocalStorage
 	// Character
 	let classSave;
 	let character = [hp, hpMax, mana, manaMax, energy, energyMax, classSave, classSelected, creatureRan, nameChar, rage, rageMax];
@@ -314,7 +318,6 @@ document.addEventListener("DOMContentLoaded", () =>{
 
 	let roll;
 
-	// Quests
 	
 
 	// Selectors
@@ -403,24 +406,29 @@ document.addEventListener("DOMContentLoaded", () =>{
 	let deathbutton = document.querySelectorAll("#wrapper:not(#reset)");
 
 	// Abilities
+
+	// Rogue
 	let comboP = document.querySelector(".combo");
 	let sins = document.querySelector("#sins");
 	let evis = document.querySelector("#evis");
 
+	// Warrior
 	let heroic = document.querySelector("#hs");
 	let mortal = document.querySelector("#ms");
 
+	// Mage
+
+
+	// Hunter
+
 	
 	// Validation
-	function validator() {
+	function validator(){
 		nameChar = document.querySelector("#characterName").value;
-		if (nameChar == "") 
-		{
+		if (nameChar == ""){
 			alert("Name must be filled out");
 			return false;
-		}
-		else
-		{
+		}else{
 			nameWritten = true;
 			save();
 			updater();
@@ -430,6 +438,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 	
 	
 
+	// Generator creatures after level
 	RandomLevel(creatureList[creatureRan].max, creatureList[creatureRan].min);
 	function RandomLevel(max, min){
 		creatureSelLvl = Math.floor(Math.random()*(max-min+1)+min);
@@ -449,50 +458,40 @@ document.addEventListener("DOMContentLoaded", () =>{
 	}
 
 	// Select Character Class
-
 	// Start defaults
-	function defaultStart()
-	{
+	function defaultStart(){
 		// Level
 		levelPre = 1;
 		level = 1;
 		exp = 0;
 		expMax = 300;
-
 		// Inventory
 		hPot = 1;
 		gold = 0;
 		food = 5;
 		water = 5;
-
 		// Picked
 		creatureRan = 0;
 		creatureMap = 0;
-
 		// Spell & Skill
 		spellCost = [0, 14, 26];
-		
 		sp = 0;
-
 		abilityUseable();
 		updater();
 		save();
 		startUp();
 		return false;
 	}
-	document.querySelector("#warrior").addEventListener('click', () =>
-	{
+
+	// Warrior
+	document.querySelector("#warrior").addEventListener('click', () =>{
 		validator();
-		if(nameWritten == false)
-		{
+		if(nameWritten == false){
 			return false;
-		}
-		else
-		{
+		}else{
 			classSelected = "Warrior";
 			classSave = true;
 			// Character
-
 			hpMax = 99;
 			hp = hpMax;
 			rage = 0;
@@ -500,7 +499,6 @@ document.addEventListener("DOMContentLoaded", () =>{
 			mana = 0;
 			manaMax = 0;
 			mPot = 0;
-
 			// Stats
 			str = 3;
 			agi = 1;
@@ -511,22 +509,16 @@ document.addEventListener("DOMContentLoaded", () =>{
 			atkMax = atk / 2;
 			spellAtk = 0;
 			spellAtkMax = 0;
-
-
 			defaultStart();
-
 		}
 	});
 
-	document.querySelector("#mage").addEventListener('click', () =>
-	{
+	// Mage
+	document.querySelector("#mage").addEventListener('click', () =>{
 		validator();
-		if(nameWritten == false)
-		{
+		if(nameWritten == false){
 			return false;
-		}
-		else
-		{
+		}else{
 			classSelected = "Mage";
 			classSave = true;
 			// Character
@@ -536,10 +528,8 @@ document.addEventListener("DOMContentLoaded", () =>{
 			energyMax = 0;
 			hpMax = 91;
 			hp = hpMax;
-
 			// Extra inventory
 			mPot = 1;
-
 			// Stats
 			str = 1;
 			agi = 1;
@@ -550,23 +540,18 @@ document.addEventListener("DOMContentLoaded", () =>{
 			atkMax = atk / 2;
 			spellAtkMax = 16;
 			spellAtk = Math.floor(spellAtkMax /2);
-
 			defaultStart();
 		}
 	});
 
-	document.querySelector("#rogue").addEventListener('click', () =>
-	{
+	// Mage
+	document.querySelector("#rogue").addEventListener('click', () =>{
 		validator();
-		if(nameWritten == false)
-		{
+		if(nameWritten == false){
 			return false;
-		}
-		else
-		{
+		}else{
 			classSelected = "Rogue";
 			classSave = true;
-	
 			// Character
 			hpMax = 92;
 			hp = hpMax;
@@ -575,7 +560,6 @@ document.addEventListener("DOMContentLoaded", () =>{
 			energy = 100;
 			energyMax = 100;
 			mPot = 0;
-
 			// Stats
 			str = 1;
 			agi = 4;
@@ -586,15 +570,20 @@ document.addEventListener("DOMContentLoaded", () =>{
 			atkMax = atk / 2;
 			spellAtk = 0;
 			spellAtkMax = 0;
-	
 			defaultStart();
 		}
-		
 	});
 
+	let atkMax = atk / 2;
+	let atkMin = atk / 2;
+
+
+	// Class Spells Selected
 	let rogueSpells = document.querySelectorAll(".rogueA");
 	let warriorSpells = document.querySelectorAll(".warriorA");
 	let mageSpells = document.querySelectorAll(".mageA");
+
+
 	// Ability & Spellbook validatior
 	function abilityUseable(){
 		if(classSelected == "Rogue"){
@@ -629,10 +618,8 @@ document.addEventListener("DOMContentLoaded", () =>{
 	}
 
 	// Death
-	function death()
-	{
-		if(hp <= 0)
-		{
+	function death(){
+		if(hp <= 0){
 			mainLog = "<span>You died.</span>";
 			logger();
 			for(let i=0; i<deathbutton.length; i++){
@@ -641,12 +628,15 @@ document.addEventListener("DOMContentLoaded", () =>{
 		}
 	}
 
-	// Anonymous functions to increase stats
+	// Stat EventListeners
 	document.querySelector("#plus1").addEventListener('click', strength); 	
+	document.querySelector("#plus2").addEventListener('click', agility);
+	document.querySelector("#plus3").addEventListener('click', intellect); 
+	document.querySelector("#plus4").addEventListener('click', stamina); 
+
 
 	function strength(){
-		if(sp > 0)
-		{
+		if(sp > 0){
 			str++;
 			hp+= 4;
 			atk+= 1;
@@ -662,11 +652,8 @@ document.addEventListener("DOMContentLoaded", () =>{
 		updater();
 	}
 
-	document.querySelector("#plus2").addEventListener('click', agility);
-
 	function agility(){
-		if(sp > 0)
-		{
+		if(sp > 0){
 			agi++;
 			atk+= 1.3;
 			sp--;
@@ -680,11 +667,8 @@ document.addEventListener("DOMContentLoaded", () =>{
 		updater();
 	}
 
-	document.querySelector("#plus3").addEventListener('click', intellect); 
-
 	function intellect(){
-		if(sp > 0)
-		{
+		if(sp > 0){
 			int++;
 			mana+= 11.3;
 			manaMax+= 11.3;
@@ -699,11 +683,8 @@ document.addEventListener("DOMContentLoaded", () =>{
 		updater();
 	}
 
-	document.querySelector("#plus4").addEventListener('click', stamina); 
-
 	function stamina(){
-		if(sp > 0)
-		{
+		if(sp > 0){
 			sta++;
 			hp+=20;
 			hpMax+=20;
@@ -711,9 +692,6 @@ document.addEventListener("DOMContentLoaded", () =>{
 		}
 		updater();
 	}
-
-	// Inventory use
-
 
 	// Bar Handler
 	function barHandler(){
@@ -734,109 +712,78 @@ document.addEventListener("DOMContentLoaded", () =>{
 		}
 	}
 
-	// Food / Water
-
+	// Inventory Usables
 	// Water
-	document.querySelector("#waterUse").addEventListener("click", () =>
-	{
-		if(water >= 1 && creatureBox.style.visibility != "visible" && mana < manaMax)
-		{
+	document.querySelector("#waterUse").addEventListener("click", () =>{
+		if(water >= 1 && creatureBox.style.visibility != "visible" && mana < manaMax){
 			water--;
 			mainLog = "<b>You drink your water and replensih " + Math.floor((manaMax*0.70)) + " mana.</b>";
 			logger();
 			mana+= Math.floor((manaMax*0.70));
-			if(mana >= manaMax)
-			{
+			if(mana >= manaMax){
 				mana = manaMax;
 				mainLog = "<b>You replenished all your mana!</b>";
 				logger();
 			}
 			save();
 			updater();
-		}
-		else if(water == 0)
-		{
+		}else if(water == 0){
 			mainLog = "<span>You don't have any Water!</span>";
 			logger();
-		}
-		else if(creatureBox.style.visibility == "visible")
-		{
+		}else if(creatureBox.style.visibility == "visible"){
 			mainLog = "<span>You cannot do that while in combat!</span>";
 			logger();
-		}
-		else if(mana >= manaMax)
-		{
+		}else if(mana >= manaMax){
 			mainLog = "<span>You already have full mana!</span>";
 			logger();
 		}
-
-
 	});
 
 	// Food
-	let eat;
-	document.querySelector("#foodUse").addEventListener("click", () =>
-	{
-		if(food >= 1 && creatureBox.style.visibility != "visible" && hp < hpMax)
-		{
+	document.querySelector("#foodUse").addEventListener("click", () =>{
+		if(food >= 1 && creatureBox.style.visibility != "visible" && hp < hpMax){
 			food--;
 			mainLog = "<b>You eat your food and restore " + Math.floor((hpMax*0.70)) + " health.</b>";
 			logger();
 			hp+= Math.floor((hpMax*0.70));
-			if(hp >= hpMax)
-			{
+			if(hp >= hpMax){
 				hp = hpMax;
 				mainLog = "<b>You restored all your hp!</b>";
 				logger();
 			}
 			save();
 			updater();
-		}
-		else if(food == 0)
-		{
+		}else if(food == 0){
 			mainLog = "<span>You don't have any Food!</span>";
 			logger();
-		}
-		else if(creatureBox.style.visibility == "visible")
-		{
+		}else if(creatureBox.style.visibility == "visible"){
 			mainLog = "<span>You cannot do that while in combat!</span>";
 			logger();
-		}
-		else if(hp >= hpMax)
-		{
+		}else if(hp >= hpMax){
 			mainLog = "<span>You already have full hp!</span>";
 			logger();
 		}
-
-
 	});
 
-	// Potions
-	document.querySelector("#hPotUse").addEventListener('click', () =>
-	{
-		if(hPot == 0)
-		{
+	// Health Potion
+	document.querySelector("#hPotUse").addEventListener('click', () =>{
+		if(hPot == 0){
 			mainLog = "<span>You don't have any Health Potions!</span>";
 			logger();
 		}
-		if(hp == hpMax && hPot > 0)
-		{
+		if(hp == hpMax && hPot > 0){
 			mainLog = "<span>You already have full hp!</span>";
 			logger();
 		}
-		if(hPot > 0)
-		{
-			if(hp < hpMax)
-			{
+		if(hPot > 0){
+			if(hp < hpMax){
 				hp+= (hpMax*0.4);
 				mainLog = "You used a <span>Health Potion</span> and <b>healed " + Math.floor((hpMax*0.4)) + " hp.</b>";
 				logger();
 				hPot--;
-				if(hp > hpMax)
-				{
+				if(hp > hpMax){
 					hp = hpMax;
-					if(hp == hpMax)
-					{
+					if(hp == hpMax){
 						mainLog = "You <b>healed</b> to full hp!";
 						logger();
 					}
@@ -846,31 +793,25 @@ document.addEventListener("DOMContentLoaded", () =>{
 		updater();
 	});
 
-	document.querySelector("#mPotUse").addEventListener('click', () =>
-	{
-		if(mPot == 0)
-		{
+	// Mana Potion
+	document.querySelector("#mPotUse").addEventListener('click', () =>{
+		if(mPot == 0){
 			mainLog = "<span>You don't have any Mana Potions!</span>";
 			logger();
 		}
-		if(mana == manaMax && mPot > 0)
-		{
+		if(mana == manaMax && mPot > 0){
 			mainLog = "<span>You already have full mana!</span>";
 			logger();
 		}
-		if(mPot > 0)
-		{
-			if(mana < manaMax)
-			{
+		if(mPot > 0){
+			if(mana < manaMax){
 				mana+= (manaMax * 0.4);
 				mainLog = "You used a <span>Health Potion</span> and <b>regained " + Math.floor((manaMax*0.4)) + " mana.</b>";
 				logger();
 				mPot--;
-				if(mana > manaMax)
-				{
+				if(mana > manaMax){
 					mana = manaMax;
-					if(mana == manaMax)
-					{
+					if(mana == manaMax){
 						mainLog = "You regained all your <b>mana</b>!";
 						logger();
 					}
@@ -889,20 +830,11 @@ document.addEventListener("DOMContentLoaded", () =>{
 		startUp();
 	}
 
-
-	// Actions
-
-	let atkMax = atk / 2;
-	let creatureAtkMin = creatureList[creatureRan].creatureAtk / 2;
-	let creatureAtkMax = creatureList[creatureRan].creatureAtk / 2;
-	let atkMin = atk / 2;
-
-	setTimeout(() => 
-	{
+	// StartupEvent
+	setTimeout(() => {
 		mapArrived = true;
 		mainLog = "You start your adventure in <span> Elwynn Forest.</span>";
-		if(classSave == true)
-		{
+		if(classSave == true){
 			mainLog = "You return your adventure at <span>The " + creatureList[creatureRan].creatureMap + "</span>."
 		}
 		RandomLevel(creatureList[creatureRan].max, creatureList[creatureRan].min);
@@ -910,102 +842,75 @@ document.addEventListener("DOMContentLoaded", () =>{
 		updater();
 	}, );
 
-	// Shop
-
-	// Buy HP Potion
+	// Buyables
+	// HP Potion
 	document.querySelector("#hPotBuy").addEventListener("click", () =>
 	{
-		if(gold >= hPotCost && creatureBox.style.visibility == "hidden")
-		{
+		if(gold >= hPotCost && creatureBox.style.visibility == "hidden"){
 			console.log("hpot");
 			hPot++;
 			gold-= hPotCost;
 			mainLog = "<b>You bought a Health Potion.</b>";
 			logger();
-		}
-		else if(creatureBox.style.visibility == "visible")
-		{
+		}else if(creatureBox.style.visibility == "visible"){
 			mainLog = "<span>You can't use the shop while being in combat!</span>";
 			logger();
-		}
-		else if(gold < hPotCost)
-		{
+		}else if(gold < hPotCost){
 			mainLog = "<span>You can't afford that!</span>";
 			logger();
 		}
-
 		save();
 		updater();
 	});
 
-	// Buy Mana Potion
-	document.querySelector("#mPotBuy").addEventListener("click", () =>
-	{
-		if(gold >= mPotCost && creatureBox.style.visibility == "hidden")
-		{
+	// Mana Potion
+	document.querySelector("#mPotBuy").addEventListener("click", () =>{
+		if(gold >= mPotCost && creatureBox.style.visibility == "hidden"){
 			console.log("mpot");
 			mPot++;
 			gold-= mPotCost;
 			mainLog = "<b>You bought a Mana Potion.</b>";
 			logger();
-		}
-		else if(creatureBox.style.visibility == "visible")
-		{
+		}else if(creatureBox.style.visibility == "visible"){
 			mainLog = "<span>You can't use the shop while being in combat!</span>";
 			logger();
-		}
-		else if(gold < mPotCost)
-		{
+		}else if(gold < mPotCost){
 			mainLog = "<span>You can't afford that!</span>";
 			logger();
 		}
-
 		save();
 		updater();
 	});
 
-	// Buy Food
-	document.querySelector("#foodBuy").addEventListener("click", () =>
-	{
-		if(gold >= foodCost && creatureBox.style.visibility == "hidden")
-		{
+	// Food
+	document.querySelector("#foodBuy").addEventListener("click", () =>{
+		if(gold >= foodCost && creatureBox.style.visibility == "hidden"){
 			food++;
 			gold-= foodCost;
 			mainLog = "<b>You bought some food.</b>";
 			logger();
-		}
-		else if(creatureBox.style.visibility == "visible")
-		{
+		}else if(creatureBox.style.visibility == "visible"){
 			mainLog = "<span>You can't use the shop while being in combat!</span>";
 			logger();
-		}
-		else if(gold < foodCost)
-		{
+		}else if(gold < foodCost){
 			mainLog = "<span>You can't afford that!</span>";
 			logger();
 		}
-
 		save();
 		updater();
 	});
 
-	// Buy Water
-	document.querySelector("#waterBuy").addEventListener("click", () =>
-	{
-		if(gold >= waterCost && creatureBox.style.visibility == "hidden")
-		{
+	// Water
+	document.querySelector("#waterBuy").addEventListener("click", () =>{
+		if(gold >= waterCost && creatureBox.style.visibility == "hidden"){
 			water++;
 			gold-= waterCost;
 			mainLog = "<b>You bought some water.</b>";
 			logger();
-		}
-		else if(creatureBox.style.visibility == "visible")
-		{
+		}else if(creatureBox.style.visibility == "visible"){
 			mainLog = "<span>You can't use the shop while being in combat!</span>";
 			logger();
-		}
-		else if(gold < waterCost)
-		{
+		}else if(gold < waterCost){
 			mainLog = "<span>You can't afford that!</span>";
 			logger();
 		}
@@ -1021,11 +926,9 @@ document.addEventListener("DOMContentLoaded", () =>{
 	let cooldownCount = 0;
 	
 	function explore(){
-		if(creatureBox.style.visibility != "visible" && onlyOnce == true)
-		{
+		if(creatureBox.style.visibility != "visible" && onlyOnce == true){
 			zoneRan = Math.floor(Math.random() * creatureList[creatureRan].creatureName.length + 0);
-			setTimeout(() => 
-			{
+			setTimeout(() => {
 				mainLog = "You start exploring <span>the " + creatureList[creatureRan].creatureMap + "</span>."
 				document.querySelector("#creatureImg").src = creatureList[creatureRan].creatureImage[zoneRan];
 				logger();
@@ -1034,28 +937,23 @@ document.addEventListener("DOMContentLoaded", () =>{
 			onlyOnce = false;
 		}
 
-		if(creatureBox.style.visibility == "visible")
-		{
+		if(creatureBox.style.visibility == "visible"){
 			mainLog = "You are fighting <span>" + creatureList[creatureRan].creatureName[zoneRan] + "</span>."
 			logger();
 			save();
 		}
 		
-		if(oneClickCount == true)
-		{
+		if(oneClickCount == true){
 			oneClickCount = false;
 			findEnemy = setTimeout(() => {
-				if(mapArrived == true)
-				{
-					if(creatureBox.style.visibility != "visible")
-					{
+				if(mapArrived == true){
+					if(creatureBox.style.visibility != "visible"){
 						mainLog = "You see a <span>" + creatureList[creatureRan].creatureName[zoneRan] + "</span>, what will you do?";
 						logger();
 					}
 					creatureBox.style.visibility = "visible";
 					creatureBar.style.zIndex="1";
-					if(creatureDeath == true)
-					{
+					if(creatureDeath == true){
 						creatureList[creatureRan].creatureHp = creatureList[creatureRan].creatureHpMax;
 						creatureDeath = false;
 					}
@@ -1065,30 +963,13 @@ document.addEventListener("DOMContentLoaded", () =>{
 		updater();
 		save();
 	}
+
 	document.querySelector("#fight").addEventListener('click', explore);
 
-	// Fightbook
-	// document.querySelector("#attackd").addEventListener('click', () =>
-	// {
-	// 	if(creatureBox.style.visibility == "visible")
-	// 	{
-	// 		if(fightBook.style.visibility != "visible")
-	// 		{
-	// 			fightBook.style.visibility = "visible";
-	// 		}
-	// 		else
-	// 		{
-	// 			fightBook.style.visibility = "hidden";
-	// 		}
-	// 	}
-	// });
-
-	function creatureAttack()
-	{
+	function creatureAttack(){
 		let special = false;
 		if(round == creatureList[creatureRan].specialRound[zoneRan]){
-			if(creatureList[creatureRan].creatureHp >= 1)
-			{
+			if(creatureList[creatureRan].creatureHp >= 1){
 				hp-= roll = Math.floor(Math.random() * creatureList[creatureRan].creatureSpecialatk / 2 + creatureList[creatureRan].creatureSpecialatk / 2);
 				mainLog = "The <span>" + creatureList[creatureRan].creatureName[zoneRan] + "</span> used <span>" + creatureList[creatureRan].creatureSpecial[zoneRan] + "</span> and hit for <span>" + roll + " damage.</span>";
 				round-= creatureList[creatureRan].specialRound[zoneRan];
@@ -1098,8 +979,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 			}
 		}
 		if(round < creatureList[creatureRan].specialRound[zoneRan] && special == false){
-			if(creatureList[creatureRan].creatureHp >= 1)
-			{
+			if(creatureList[creatureRan].creatureHp >= 1){
 				hp-= roll = Math.floor(Math.random() * creatureList[creatureRan].creatureAtk / 2 + creatureList[creatureRan].creatureAtk / 2);
 				mainLog = "The <span>" + creatureList[creatureRan].creatureName[zoneRan] + "</span> hit you for <span>" + roll + " damage.</span>";
 				round++;
@@ -1107,7 +987,6 @@ document.addEventListener("DOMContentLoaded", () =>{
 				updater();
 			}
 		}
-
 	}
 
 	function generator(){
@@ -1135,50 +1014,12 @@ document.addEventListener("DOMContentLoaded", () =>{
 		}
 	}
 
-	let questList = {
-		skeletons: {
-			creature: "Skeleton",
-			obj: 5,
-			req: 6,
-			exp: 90
-		},
-		quest2: {
-			obj: 0,
-			req: 7,
-			exp: 180
-		}
-	};
+	// Create quest functions below
 
-	let questBtn1 = document.querySelector("#quest_btn_1");
 
-	function questTracker(){
-		if(questList.skeletons.creature == creatureName[zoneRan][creatureRan] && questList.skeletons.obj < questList.skeletons.req){
-			questList.skeletons.obj++;
-			if(questList.skeletons.obj == questList.skeletons.req){
-				mainLog = "<b>You completed your quest and it can now be delivered!</b>";
-				questBtn1.style.display="block";
-				logger();
-			}
-		}
-		updater();
-	}
-
-	
-
-	
-	questBtn1.addEventListener("click", () => {
-		mainLog = "<b>You obtained " + questList.skeletons.exp + " exp from delivering your quest!</b>";
-		logger();
-		exp += questList.skeletons.exp;
-		questBtn1.style.display="none";
-		updater();
-		save();
-	});
-
-	function creatureKilled()
-	{
-		if(creatureList[creatureRan].creatureHp <= 0)
-		{
+	// Creature functions & actions
+	function creatureKilled(){
+		if(creatureList[creatureRan].creatureHp <= 0){
 			creatureBox.style.visibility="hidden";
 			creatureBar.style.zIndex="-1";
 			gold+= creatureList[creatureRan].goldGain;
@@ -1198,7 +1039,6 @@ document.addEventListener("DOMContentLoaded", () =>{
 			mainLog = "You gained <b>" + expGiven + " experience points</b> & <b>" + creatureList[creatureRan].goldGain + " gold.</b>";
 			creatureDeath = true;
 			onlyOnce = true;
-			// show_hide();
 			logger();
 			creatureList[creatureRan].creatureHp = creatureList[creatureRan].creatureHpMax;
 			oneClickCount = true;
@@ -1212,18 +1052,15 @@ document.addEventListener("DOMContentLoaded", () =>{
 		}
 	}
 
-	function attackCalc()
-	{
+	function attackCalc(){
 		atkMin = atk / 2;
 		atkMax = atk / 2;
 		creatureAtkMax = creatureAtk[creatureRan] / 2;
 		creatureAtkMin = creatureAtk[creatureRan] / 2;
 	}
 
-	function creatureActions()
-	{
-		let creatureHit = setTimeout(() => 
-		{
+	function creatureActions(){
+		let creatureHit = setTimeout(() => {
 			creatureAttack();
 			creatureKilled();
 			death();
@@ -1232,8 +1069,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 	}
 
 	function noNegativeNr(){
-		if([creatureRan] < 0)
-		{
+		if([creatureRan] < 0){
 			roll = creatureList[creatureRan].creatureHp;
 			creatureList[creatureRan].creatureHp = 0;
 		}
@@ -1265,8 +1101,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 	// General Abilities
 	function autoAttack(){
 		notInCombat();
-		if(creatureDeath == false && timeout == true && creatureBox.style.visibility == "visible")
-		{	
+		if(creatureDeath == false && timeout == true && creatureBox.style.visibility == "visible"){	
 			attackCalc();
 			noNegativeNr();
 			generator();
@@ -1295,13 +1130,11 @@ document.addEventListener("DOMContentLoaded", () =>{
 	}
 	function sinisterStrike(){
 		notInCombat();
-		if(energy < 35 && creatureBox.style.visibility == "visible")
-		{
+		if(energy < 35 && creatureBox.style.visibility == "visible"){
 			mainLog = "<span>You don't have enough energy for that</span>";
 			logger();
 		}
-		if(creatureDeath == false && timeout == true && creatureBox.style.visibility == "visible" && energy >= 35)
-		{	
+		if(creatureDeath == false && timeout == true && creatureBox.style.visibility == "visible" && energy >= 35){	
 			comboPoints();
 			attackCalc();
 			noNegativeNr();
@@ -1321,8 +1154,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 
 	function eviscerate(){
 		notInCombat();
-		if(energy < 10 && creatureBox.style.visibility == "visible")
-		{
+		if(energy < 10 && creatureBox.style.visibility == "visible"){
 			mainLog = "<span>You don't have enough energy for that</span>";
 			logger();
 		}
@@ -1330,8 +1162,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 			mainLog = "<span>You don't have any combo points!</span>";
 			logger();
 		}
-		if(creatureDeath == false && timeout == true && creatureBox.style.visibility == "visible" && energy >= 10 && comboPoint > 0)
-		{
+		if(creatureDeath == false && timeout == true && creatureBox.style.visibility == "visible" && energy >= 10 && comboPoint > 0){
 			attackCalc();
 			noNegativeNr();
 			roll = Math.floor(Math.random() * atkMax + atkMin * (comboPoint));
@@ -1501,6 +1332,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 	
 
 
+	// Used to get information from my database, currently under development (Fetch work, backend doesn't)
 	// fetch("http://boxcode.dk/getAllUsers")
 	// .then((response) => {
 	// 	return response.json();
@@ -1509,6 +1341,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 	// 	leaderboard(users);
 	// });
 
+	// Used to display leaderboard from database (Working)
 	function leaderboard(users){
 		// First place
 		firstName.innerHTML = users[0].name;
@@ -1532,21 +1365,19 @@ document.addEventListener("DOMContentLoaded", () =>{
 		fiveClass.innerHTML = users[4].class;
 	}
 
-
-
-
-
+	// Key Press functions and checker
 	let canKeyBeHandled = true;
 	document.onkeydown = checkKey;
 	document.onkeyup = () => {
 		canKeyBeHandled = true;
 	};
 
+	// Make first letter of all names uppercase
 	String.prototype.capitalize = () => {
 		return nameChar.charAt(0).toUpperCase() + nameChar.slice(1);
-	
 	}
 
+	// Test zone
 	let activePlayers = [
 		{
 			name: "Elwynn Forest",
@@ -1566,6 +1397,8 @@ document.addEventListener("DOMContentLoaded", () =>{
 			}
 		}
 	}
+
+	// Test zone end
 
 	let chatBox = document.querySelector("#chatBox");
 	
@@ -1621,6 +1454,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 		}
 	}
 
+	// Ability EventListeners
 	// General
 	document.querySelector("#auto").addEventListener('click', autoAttack)
 
@@ -1639,109 +1473,14 @@ document.addEventListener("DOMContentLoaded", () =>{
 
 	document.querySelector("#frostbolt").addEventListener('click', frostbolt);
 	
-
-	// Spell
-
-	// Spellbook
-	// document.querySelector("#spell").addEventListener('click', () =>
-	// {
-	// 	if(creatureBox.style.visibility == "visible")
-	// 	{
-	// 		if(spellBook.style.visibility != "visible")
-	// 		{
-	// 			spellBook.style.visibility = "visible";
-	// 		}
-	// 		else
-	// 		{
-	// 			spellBook.style.visibility = "hidden";
-	// 			fightBook.style.visibility = "hidden";
-	// 		}
-	// 	}
-
-	// });
-
-	// scorch
-	// document.querySelector("#scorch").addEventListener('click', () =>
-	// {
-	// 	notEnoughMana(0);
-	// 	if(spellAtk > 0)
-	// 	{
-	// 		if(creatureDeath == false && timeout == true && creatureBox.style.visibility == "visible" && mana >= spellCost[0])
-	// 		{	
-	// 			noNegativeNr();
-	// 			roll = Math.floor(Math.random() * spellAtk + spellAtk * 0.1)
-	// 			dmgEqualHp();
-	// 			mainLog = "Your <span>scorch</span> hit the <span>" + creatureList[creatureRan].creatureName[zoneRan] + "</span> for <span>" + roll + " damage.</span>"
-	// 			mana-= spellCost[0];
-	// 			show_hide();
-	// 			logger();
-	// 			timeout = false;
-	// 			creatureActions();
-	// 		}
-	// 		updater();
-	// 		save();
-	// 		death();
-	// 	}
-	// });
-
-	// // Frostbolt
-	// document.querySelector("#frostbolt").addEventListener('click', () =>
-	// {
-	// 	notEnoughMana(1);
-	// 	if(spellAtk > 0)
-	// 	{
-	// 		if(creatureDeath == false && timeout == true && creatureBox.style.visibility == "visible" && mana >= spellCost[1])
-	// 		{	
-	// 			noNegativeNr();
-	// 			roll = Math.floor(Math.random() * spellAtk + spellAtk * 1.3)
-	// 			dmgEqualHp();
-	// 			mainLog = "Your <span>frostbolt</span> hit the <span>" + creatureList[creatureRan].creatureName[zoneRan] + "</span> for <span>" + roll + " damage.</span>"
-	// 			mana-= spellCost[1];
-	// 			show_hide();
-	// 			logger();
-	// 			timeout = false;
-	// 			creatureActions();
-	// 		}
-	// 		updater();
-	// 		save();
-	// 		death();
-	// 	}
-	// });
-
-	// // Pyroblast
-	// document.querySelector("#fireball").addEventListener('click', () =>
-	// {
-	// 	notEnoughMana(2);
-	// 	if(spellAtk > 0)
-	// 	{
-	// 		if(creatureDeath == false && timeout == true && creatureBox.style.visibility == "visible" && mana >= spellCost[2])
-	// 		{	
-	// 			noNegativeNr();
-	// 			roll = Math.floor(Math.random() * spellAtk + spellAtk * 1.9)
-	// 			dmgEqualHp();
-	// 			mainLog = "Your <span>pyroblast</span> hit the <span>" + creatureList[creatureRan].creatureName[zoneRan] + "</span> for <span>" + roll + " damage.</span>"
-	// 			mana-= spellCost[2];
-	// 			show_hide();
-	// 			logger();
-	// 			timeout = false;
-	// 			creatureActions();
-	// 		}
-	// 		updater();
-	// 		save();
-	// 		death();
-	// 	}
-	// });
-
+	// Flee function
 	creatureBox.style.visibility="hidden";
-	document.querySelector("#flee").addEventListener('click', () =>
-	{ // Flee
+	document.querySelector("#flee").addEventListener('click', () =>{
 
 		let fleeChance = Math.floor(Math.random() * 100);
-		if(creatureBox.style.visibility == "visible" && timeout == true)
-		{			
+		if(creatureBox.style.visibility == "visible" && timeout == true){			
 			timeout = false;
-			if(fleeChance >= 60)
-			{
+			if(fleeChance >= 60){
 				mainLog = "You <span>fled</span> from the <span>" + creatureList[creatureRan].creatureName[zoneRan] + "</span>."
 				creatureList[creatureRan].creatureHp = creatureList[creatureRan].creatureHpMax;
 				creatureBox.style.visibility="hidden";
@@ -1753,41 +1492,32 @@ document.addEventListener("DOMContentLoaded", () =>{
 				oneClickCount = true;
 				onlyOnce = true;
 				timeout = true;
-				
-			}
-			else if(fleeChance >= 10)
-			{
+			}else if(fleeChance >= 10){
 				mainLog = "You tried to <span>flee</span> from the <span>" + creatureList[creatureRan].creatureName[zoneRan] + "</span> but failed."
-				let creatureHit = setTimeout(() => 
-				{
-					if(creatureList[creatureRan].creatureHp >= 0)
-					{
+				let creatureHit = setTimeout(() => {
+					if(creatureList[creatureRan].creatureHp >= 0){
 						hp-= roll = Math.floor(Math.random() * creatureList[creatureRan].creatureAtk / 2 + creatureList[creatureRan].creatureAtk / 2);
 						mainLog = "The <span>" + creatureList[creatureRan].creatureName[zoneRan] + "</span> hit you for <span>" + roll + " damage.</span>";
 						logger();
 						updater();
 					}
-						timeout = true;
+					timeout = true;
 				}, 1000);
 				save();
 				logger();
 				updater();
 				death();
 				oneClickCount = true;
-			}
-			else if(fleeChance >= 0)
-			{
+			}else if(fleeChance >= 0){
 				mainLog = "You tried to <span>flee</span> from the <span>" + creatureList[creatureRan].creatureName[zoneRan] + "</span> but caught you."
-				let creatureHit = setTimeout(() => 
-				{
-					if(creatureList[creatureRan].creatureHp >= 0)
-					{
+				let creatureHit = setTimeout(() => {
+					if(creatureList[creatureRan].creatureHp >= 0){
 						hp-= roll = Math.floor(Math.random() * creatureList[creatureRan].creatureAtk / 2 + creatureList[creatureRan].creatureAtk / 2)*2;
 						mainLog = "The <span>" + creatureList[creatureRan].creatureName[zoneRan] + "</span> critical hit you for <span>" + roll + " damage.</span>";
 						logger();
 						updater();
 					}
-						timeout = true;
+					timeout = true;
 				}, 1000);
 				save();
 				logger();
@@ -1798,24 +1528,21 @@ document.addEventListener("DOMContentLoaded", () =>{
 		}
 	});
 
-	function logger()
-	{
+	// Custom console log & chatbox
+	function logger(){
 		let newLog = log.cloneNode(true);
 		newLog.innerHTML = mainLog;
 		document.querySelector("#log .console p:last-child").appendChild(newLog);
 		updateScroll();
 	}
 
-
-
+	// Always scroll to bottom on new message
 	function updateScroll(){
 		let logConsole = document.querySelector(".console");
 		logConsole.scrollTop = logConsole.scrollHeight;
 	}
 
-
-	function save()
-	{
+	function save(){
 		// Character
 		character = [hp, hpMax, mana, manaMax, energy, energyMax, classSave, classSelected, creatureRan, nameChar, rage, rageMax];
 		characterString = JSON.stringify(character);
@@ -1837,15 +1564,13 @@ document.addEventListener("DOMContentLoaded", () =>{
 		localStorage.setItem(invStorage, invString);
 	}
 
-	function load() 
-	{
+	function load() {
 		let charData = JSON.parse(localStorage.getItem(characterStorage));
 		let statData = JSON.parse(localStorage.getItem(statStorage));
 		let lvlData = JSON.parse(localStorage.getItem(lvlStorage));
 		let invData = JSON.parse(localStorage.getItem(invStorage));
 
-		if(charData != null)
-		{
+		if(charData != null){
 			hp = charData[0];
 			hpMax = charData[1];
 			mana = charData[2];
@@ -1860,8 +1585,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 			rage = charData[10];
 			rageMax = charData[11]
 		}
-		if(statData != null)
-		{
+		if(statData != null){
 			atk = statData[0];
 			spellAtk = statData[1];
 			spellAtkMax = statData[2];
@@ -1872,15 +1596,13 @@ document.addEventListener("DOMContentLoaded", () =>{
 			int = statData[7];
 			sta = statData[8]
 		}
-		if(lvlData != null)
-		{
+		if(lvlData != null){
 			levelPre = lvlData[0];
 			level = lvlData[1];
 			exp = lvlData[2];
 			expMax = lvlData[3];
 		}
-		if(invData != null)
-		{
+		if(invData != null){
 			hPot = invData[0];
 			mPot = invData[1];
 			gold = invData[2];
@@ -1889,24 +1611,21 @@ document.addEventListener("DOMContentLoaded", () =>{
 		}
 		barHandler();
 	}
+
+	// Reset button
 	document.querySelector("#reset").addEventListener('click', reset);
 
-
 	// Inventory restrictions
-	function inventoryRestriction()
-	{
-		
+	function inventoryRestriction(){
 		// Skill points restriction
-		if(sp <= 0)
-		{
+		if(sp <= 0){
 			strBtnSel.style.visibility="hidden";
 			agiBtnSel.style.visibility="hidden";
 			intBtnSel.style.visibility="hidden";
 			staBtnSel.style.visibility="hidden";
 			
 		}
-		if(sp >= 1)
-		{
+		if(sp >= 1){
 			strBtnSel.style.visibility="visible";
 			agiBtnSel.style.visibility="visible";
 			intBtnSel.style.visibility="visible";
@@ -1914,10 +1633,9 @@ document.addEventListener("DOMContentLoaded", () =>{
 		}
 	}
 
-	
+	// Need solid improvements / transition on startup
 	function startUp(){
-		if(classSave == true)
-		{
+		if(classSave == true){
 			classPick.style.display="none";
 			setTimeout(() => {
 				gameScreen.style.display="block";
@@ -1932,20 +1650,14 @@ document.addEventListener("DOMContentLoaded", () =>{
 		}
 	}
 
-
-	updater();
-	function updater()
-	{
-		startUp();
-		// Exp & Level
-		if(exp >= expMax)
-		{
+	// Control ur level & and give stats on level
+	function levelUp(){
+		if(exp >= expMax){
 			level++;
 			exp = exp - expMax;
 			expMax = Math.floor(expMax * 1.1);
 		}
-		if(level > levelPre)
-		{
+		if(level > levelPre){
 			if(classSelected == "Warrior"){
 				hpMax+= 17;
 				atk++;
@@ -1977,9 +1689,15 @@ document.addEventListener("DOMContentLoaded", () =>{
 			logger();
 			stamina();
 			mainLog = "You gained 1 stamina!";
-			logger();
-			
+			logger();	
 		}
+	}
+
+
+	updater();
+	function updater(){
+		startUp();
+		levelUp();
 
 		// Character
 		classPicked.innerHTML = classSelected;
@@ -1993,7 +1711,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 		rageSel.innerHTML = rage;
 		rageMaxSel.innerHTML = rageMax;
 
-		// Bars
+		// Bars percent calculation
 		let percentHp = Math.floor(hp/hpMax*100);
 		let percentMana = Math.floor(mana/manaMax*100);
 		let percentEnergy = Math.floor(energy/energyMax*100);
@@ -2003,6 +1721,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 		let percentCreatureHp = Math.floor(creatureList[creatureRan].creatureHp/creatureList[creatureRan].creatureHpMax*100);
 		let percentRound = Math.floor(round/creatureList[creatureRan].specialRound[zoneRan]*100);
 		
+		// CSS Variables changed based on percentage
 		root.style.setProperty('--hpBar', percentHp + "%");
 		root.style.setProperty('--manaBar', percentMana + "%");
 		root.style.setProperty('--energyBar', percentEnergy + "%");
@@ -2012,6 +1731,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 		root.style.setProperty('--comboPointBar', percentCombo + "%");
 		root.style.setProperty('--specialRoundBar', percentRound + "%");
 
+		// Update barhandler
 		barHandler();
 
 		// Level
@@ -2040,9 +1760,6 @@ document.addEventListener("DOMContentLoaded", () =>{
 		mapShowSel.innerHTML = creatureList[creatureMap].creatureMap;
 
 		// Quest
-		quest_obj_1Sel.innerHTML = questList.skeletons.obj;
-
-		quest_req_1Sel.innerHTML = questList.skeletons.req;
 
 		// Shop
 		hPotBuySel.innerHTML = hPotCost;
@@ -2061,39 +1778,29 @@ document.addEventListener("DOMContentLoaded", () =>{
 		specialRoundMaxSel.innerHTML = creatureList[creatureRan].specialRound[zoneRan];
 		specialAttackSel.innerHTML = creatureList[creatureRan].creatureSpecial[zoneRan];
 
-
-
+		// Restrictions & class ability checker
 		inventoryRestriction();
 		abilityUseable();
 	}
 
-
+	// Save or loads ur game depending on what your localStorage contain
 	let storage = localStorage.getItem(characterStorage) & localStorage.getItem(statStorage) & localStorage.getItem(lvlStorage);
-	if(storage == null) // Storage doesn't have any saved data
-	{
+	if(storage == null){
 		save();
-	}
-	else
-	{
+	}else{
 		load();
 	}
 
-	// Level Selection
-	for(let i = 0; i<mapSel.length; i++)
-	{
-		mapSel[i].addEventListener('click', () => 
-		{
-			if(creatureBox.style.visibility != "visible")
-			{
+	// Level Selection & determine creature depending on level selected
+	for(let i = 0; i<mapSel.length; i++){
+		mapSel[i].addEventListener('click', () => {
+			if(creatureBox.style.visibility != "visible"){
 				creatureMap = i;
 				creatureRan = creatureMap;
 				mapArrived = true;
-				
 				mainLog = "You travelled to <span>The " + creatureList[i].creatureMap + "</span>.";
 				logger();
-
 				getPlayer(creatureList[i].creatureMap);
-
 				RandomLevel(creatureList[creatureRan].max, creatureList[creatureRan].min);
 				if(level < i){
 					mainLog = "You hear a voice in your head saying:";
