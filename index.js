@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () =>{
-	let root = document.documentElement;
+	const root = document.documentElement;
 
 	// Character
 	let nameWritten = false;
@@ -7,15 +7,12 @@ document.addEventListener("DOMContentLoaded", () =>{
 	let classSelected;
 	let hp;
 	let hpMax;
-	let hpBar;
 	let mana;
 	let manaMax;
-	let manaBar;
 	let rage;
 	let rageMax;
 	let energy;
 	let energyMax;
-	let energyBar;
 	
 
 	// Inventory
@@ -422,18 +419,21 @@ document.addEventListener("DOMContentLoaded", () =>{
 	// Hunter
 
 	
-	// Validation
-	function validator(){
-		nameChar = document.querySelector("#characterName").value;
-		if (nameChar == ""){
-			alert("Name must be filled out");
-			return false;
-		}else{
-			nameWritten = true;
-			save();
-			updater();
-			return false;
+	/**
+	 * Checks if the character name exists in the HTML.
+	 * If yes, saves it in the Character, saves, and updates.
+	 */
+	function nameValidator(){
+		const characterName = document.querySelector('#characterName').value;
+
+		if (!characterName) {
+			return alert('Name must be filled out');
 		}
+
+		nameWritten = true;
+		nameChar = characterName;
+		save();
+		updater();
 	}	
 	
 	
@@ -485,7 +485,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 
 	// Warrior
 	document.querySelector("#warrior").addEventListener('click', () =>{
-		validator();
+		nameValidator();
 		if(nameWritten == false){
 			return false;
 		}else{
@@ -515,7 +515,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 
 	// Mage
 	document.querySelector("#mage").addEventListener('click', () =>{
-		validator();
+		nameValidator();
 		if(nameWritten == false){
 			return false;
 		}else{
@@ -546,7 +546,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 
 	// Mage
 	document.querySelector("#rogue").addEventListener('click', () =>{
-		validator();
+		nameValidator();
 		if(nameWritten == false){
 			return false;
 		}else{
