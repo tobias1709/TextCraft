@@ -807,7 +807,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 		if(mPot > 0){
 			if(mana < manaMax){
 				mana+= (manaMax * 0.4);
-				mainLog = "You used a <span>Health Potion</span> and <b>regained " + Math.floor((manaMax*0.4)) + " mana.</b>";
+				mainLog = "You used a <span>Mana Potion</span> and <b>regained " + Math.floor((manaMax*0.4)) + " mana.</b>";
 				logger();
 				mPot--;
 				if(mana > manaMax){
