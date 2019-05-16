@@ -1,6 +1,9 @@
 document.addEventListener("DOMContentLoaded", () =>{
 	let root = document.documentElement;
 
+	let questKillClass = document.getElementsByClassName("questAmount");
+	let questClass = document.getElementsByClassName("objective");
+
 	// Character
 	let nameWritten = false;
 	let nameChar;
@@ -367,9 +370,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 	let fightBook = document.querySelector("#fightbook");
 
 	// Quest
-	let quest_obj_1Sel = document.querySelector("#quest_obj_1");
-
-	let quest_req_1Sel = document.querySelector("#quest_req_1");
+	let activeQuest = [];
 
 	// Inventory
 	let hPotSel = document.querySelector("#hPot");
@@ -836,6 +837,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 		mainLog = "You start your adventure in <span> Elwynn Forest.</span>";
 		if(classSave == true){
 			mainLog = "You return your adventure at <span>The " + creatureList[creatureRan].creatureMap + "</span>."
+			addQuests(creatureRan);
 		}
 		RandomLevel(creatureList[creatureRan].max, creatureList[creatureRan].min);
 		logger();
@@ -1015,11 +1017,51 @@ document.addEventListener("DOMContentLoaded", () =>{
 	}
 
 	// Create quest functions below
+	function questUpdater(creature){
+		activeQuest.forEach(x => {
+			if(x.creatureName == creature){
+				x.killCount++;
+				if(x.killCount == x.creatureKillsRequired){
+					gold += x.questRewardGold;
+					activeQuest.splice(activeQuest.indexOf(x), 1);
+				}
+				updateQuests();
+			}
+		});
+	}
 
+	function addQuests(i){
+		activeQuest = [];
+		creatureList[i].creatureName.forEach(x => {
+			let killCount = Math.floor(Math.random() * Math.floor(9) + 2);
+			activeQuest.push(new Quest("Kill " + killCount + " " + x + "s", killCount + Math.floor(Math.random() * Math.floor(3)), null, x, killCount))
+		});
+		updateQuests();
+	}
+
+	function updateQuests(){
+
+		questKillClass[0].innerHTML = '';
+		questClass[0].innerHTML = '';
+
+		activeQuest.forEach(x => {
+			let questKills = document.createElement('p');
+			questKills.innerHTML = x.killCount + "/" + x.creatureKillsRequired;
+			questKillClass[0].appendChild(questKills);
+
+			let questPara = document.createElement("p");
+			questPara.innerHTML = x.questName;
+			questClass[0].appendChild(questPara);
+
+			mainLog = "New quest: " + x.questName + "!";
+			logger();
+		});
+	}
 
 	// Creature functions & actions
 	function creatureKilled(){
 		if(creatureList[creatureRan].creatureHp <= 0){
+			questUpdater(creatureList[creatureRan].creatureName[zoneRan]);
 			creatureBox.style.visibility="hidden";
 			creatureBar.style.zIndex="-1";
 			gold+= creatureList[creatureRan].goldGain;
@@ -1800,6 +1842,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 				mapArrived = true;
 				mainLog = "You travelled to <span>The " + creatureList[i].creatureMap + "</span>.";
 				logger();
+				addQuests(i);
 				getPlayer(creatureList[i].creatureMap);
 				RandomLevel(creatureList[creatureRan].max, creatureList[creatureRan].min);
 				if(level < i){
