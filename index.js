@@ -20,7 +20,6 @@ document.addEventListener("DOMContentLoaded", () =>{
 	let energyMax;
 	let energyBar;
 	
-
 	// Inventory
 	let hPot;
 	let mPot;
@@ -57,8 +56,6 @@ document.addEventListener("DOMContentLoaded", () =>{
 
 	let round = 0;
 	let zoneRan = 0;
-
-	
 
 	// Object Oriented Programming
 	let murloc = new Creature();
@@ -185,7 +182,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 	devilsaur.max = 39;
 	devilsaur.min = 36;
 	devilsaur.creatureName = ["Devilsaur"];
-	devilsaur.creatureImage= ["img/creatures/BeastMastery.png"];
+	devilsaur.creatureImage= ["img/creatures/beastMastery.png"];
 	devilsaur.creatureMap= "Un'goro Crater";
 	devilsaur.creatureSpecial= ["Stomp"];
 	devilsaur.specialRound= [3];
@@ -294,8 +291,8 @@ document.addEventListener("DOMContentLoaded", () =>{
 	let mapArrived = false;
 
 	// Quests
-	// Havn't done this part yet
 
+	let activeQuest = [];
 
 	// JSON LocalStorage
 	// Character
@@ -320,8 +317,6 @@ document.addEventListener("DOMContentLoaded", () =>{
 	let invStorage = "invData";
 
 	let roll;
-
-	
 
 	// Selectors
 	let characterName = document.querySelector("#inputName");
@@ -370,7 +365,9 @@ document.addEventListener("DOMContentLoaded", () =>{
 	let fightBook = document.querySelector("#fightbook");
 
 	// Quest
-	let activeQuest = [];
+	let quest_obj_1Sel = document.querySelector("#quest_obj_1");
+
+	let quest_req_1Sel = document.querySelector("#quest_req_1");
 
 	// Inventory
 	let hPotSel = document.querySelector("#hPot");
@@ -635,7 +632,6 @@ document.addEventListener("DOMContentLoaded", () =>{
 	document.querySelector("#plus3").addEventListener('click', intellect); 
 	document.querySelector("#plus4").addEventListener('click', stamina); 
 
-
 	function strength(){
 		if(sp > 0){
 			str++;
@@ -836,7 +832,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 		mapArrived = true;
 		mainLog = "You start your adventure in <span> Elwynn Forest.</span>";
 		if(classSave == true){
-			mainLog = "You return your adventure at <span>The " + creatureList[creatureRan].creatureMap + "</span>."
+			mainLog = "You return your adventure at <span>The " + creatureList[creatureRan].creatureMap + "</span>.";
 			addQuests(creatureRan);
 		}
 		RandomLevel(creatureList[creatureRan].max, creatureList[creatureRan].min);
@@ -1017,6 +1013,8 @@ document.addEventListener("DOMContentLoaded", () =>{
 	}
 
 	// Create quest functions below
+
+	// Create quest functions below
 	function questUpdater(creature){
 		activeQuest.forEach(x => {
 			if(x.creatureName == creature){
@@ -1058,10 +1056,10 @@ document.addEventListener("DOMContentLoaded", () =>{
 		});
 	}
 
+
 	// Creature functions & actions
 	function creatureKilled(){
 		if(creatureList[creatureRan].creatureHp <= 0){
-			questUpdater(creatureList[creatureRan].creatureName[zoneRan]);
 			creatureBox.style.visibility="hidden";
 			creatureBar.style.zIndex="-1";
 			gold+= creatureList[creatureRan].goldGain;
@@ -1434,7 +1432,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 	function getPlayer(playerMap){
 		for(let i=0; i < activePlayers.length; i++){
 			if(playerMap == activePlayers[i].name){
-				mainLog = "You see the following nearby players: <b>" + activePlayers[i].players + "</b> in " + creatureList[creatureRan].creatureMap + ".";
+				mainLog = "The following players are in " + creatureList[creatureRan].creatureMap + " right now: <b>" + activePlayers[i].players +  ".</b>";
 				logger();
 			}
 		}
@@ -1735,7 +1733,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 		}
 	}
 
-
+	// Updates all visuals on the site and manages the majority of the calculated numbers
 	updater();
 	function updater(){
 		startUp();

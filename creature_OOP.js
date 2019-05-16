@@ -25,9 +25,3 @@ class Creature{
 		this.specialBonus = 4
 	}
 }
-
-class Shop{
-	constructor(){
-		
-	}
-}
