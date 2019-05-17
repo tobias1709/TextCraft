@@ -585,46 +585,6 @@ document.addEventListener("DOMContentLoaded", () =>{
 	let atkMax = atk / 2;
 	let atkMin = atk / 2;
 
-
-	// Class Spells Selected
-	let rogueSpells = document.querySelectorAll(".rogueA");
-	let warriorSpells = document.querySelectorAll(".warriorA");
-	let mageSpells = document.querySelectorAll(".mageA");
-
-
-	// Ability & Spellbook validatior
-	/*function abilityUseable(){
-		if(classSelected == classes.rogue){
-			for(let i = 0; i<rogueSpells.length; i++){
-				rogueSpells[i].style.display="block";
-			}
-			comboP.style.display="block";
-		}else{
-			for(let i = 0; i<rogueSpells.length; i++){
-				rogueSpells[i].style.display="none";
-			}
-			comboP.style.display="none";
-		}
-		if(classSelected == classes.warrior){
-			for(let i = 0; i<warriorSpells.length; i++){
-				warriorSpells[i].style.display="block";
-			}
-		}else{
-			for(let i = 0; i<warriorSpells.length; i++){
-				warriorSpells[i].style.display="none";
-			}
-		}
-		if(classSelected == classes.mage){
-			for(let i = 0; i<mageSpells.length; i++){
-				mageSpells[i].style.display="block";
-			}
-		}else{
-			for(let i = 0; i<mageSpells.length; i++){
-				mageSpells[i].style.display="none";
-			}
-		}
-	}*/
-
 	let abilities = document.getElementById("abilities");
 	let abilitiesVisible = false;
 

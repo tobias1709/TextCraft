@@ -1,9 +1,8 @@
 class Quest {
     //quest reward item could be foot, potion or some item.
-    killCount = 0;
 
     constructor(questName, questRewardGold, questRewardItem, creatureName, creatureKillsRequired) {
-
+        this.killCount = 0;
         this.questName = questName;
         this.questRewardGold = questRewardGold;
         this.questRewardItem = questRewardItem;
