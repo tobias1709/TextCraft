@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 	let energy;
 	let energyMax;
 	let energyBar;
-	
+	let availableAbilities;
 
 	// Inventory
 	let hPot;
@@ -481,6 +481,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 		updater();
 		save();
 		startUp();
+		abilityBarLoader();
 		return false;
 	}
 
@@ -617,6 +618,72 @@ document.addEventListener("DOMContentLoaded", () =>{
 			}
 		}
 	}
+
+	let abilities = document.getElementById("abilities");
+	let abilitiesVisible = false;
+
+	function abilityBarLoader(){
+        abilityCreator();
+ 
+        //remove all generaded abilities in the html if they exist
+        if(abilitiesVisible){
+            abilitiesVisible = false;
+            for(let i = 0; i < 3; i++){
+                abilities.removeChild(abilities.children[0]);
+            }
+        }
+        else{
+            abilitiesVisible = true;
+        }
+ 
+        //need to reverse to get the right order because we are adding them first in a div with .prepend()
+        availableAbilities.reverse().forEach(x => {
+            if(classSelected == "Rogue"){
+                abilityToHTML("rogueA relative generated", x.shortName, x.iconPath, "abso", x.abilityNumber);
+            }
+            if(classSelected == "Warrior"){
+                abilityToHTML("warriorA relative generated", x.shortName, x.iconPath, "abso", x.abilityNumber);
+            }
+            if(classSelected == "Mage"){
+                abilityToHTML("mageA relative generated", x.shortName, x.iconPath, "abso", x.abilityNumber);
+            }
+        });
+        addListeners();
+    }
+
+	function abilityCreator(){
+        //first ability will always be auto attack
+        availableAbilities = [new Ability("Auto Attack", 0, "img/abilities/auto.png", "auto", 1)];
+ 
+        if(classSelected == "Rogue"){
+            availableAbilities.push(new RogueAbility("Sinister Strike", 30,"img/abilities/sins.png", "sins", 2, 0));
+            availableAbilities.push( new RogueAbility("Eviscerate", 30, "img/abilities/evis.png", "evis", 3, 1));
+        }
+        if(classSelected == "Warrior"){
+            availableAbilities.push( new WarriorAbility("Heroic Strike", 30, "img/abilities/heroic.png", "hs", 2));
+            availableAbilities.push(new WarriorAbility("Mortal Strike", 30,"img/abilities/mortal.png", "ms", 3));
+        }
+        if(classSelected == "Mage"){
+            availableAbilities.push(new MageAbility("Fireball", 30,"img/abilities/fireball.png", "fireball", 2));
+            availableAbilities.push( new MageAbility("Frostbolt", 30, "img/abilities/frostbolt.png", "frostbolt", 3));
+        }
+	}
+	
+	function abilityToHTML(divClass, divId, imgPath, pclass, pText) {
+        let div = document.createElement('div');
+        let img = document.createElement('img');
+        let p = document.createElement('p');
+ 
+        div.className = divClass;
+        img.src = imgPath;
+        div.id = divId;
+        p.className = pclass;
+        p.innerHTML = pText;
+ 
+        div.appendChild(img);
+        div.appendChild(p);
+        abilities.prepend(div);
+    }
 
 	// Death
 	function death(){
@@ -1498,22 +1565,26 @@ document.addEventListener("DOMContentLoaded", () =>{
 
 	// Ability EventListeners
 	// General
-	document.querySelector("#auto").addEventListener('click', autoAttack)
+	//addListeners();
+	function addListeners(){
+		document.querySelector("#auto").addEventListener('click', autoAttack)
 
-	// Rogue
-	document.querySelector("#sins").addEventListener('click', sinisterStrike);
-
-	document.querySelector("#evis").addEventListener('click', eviscerate);
-
-	// Warrior
-	document.querySelector("#hs").addEventListener('click', heroicStrike);
-
-	document.querySelector("#ms").addEventListener('click', mortalStrike);
-
-	// Mage
-	document.querySelector("#fireball").addEventListener('click', fireball);
-
-	document.querySelector("#frostbolt").addEventListener('click', frostbolt);
+		if(classSelected == "Rogue"){
+			// Rogue
+			document.querySelector("#sins").addEventListener('click', sinisterStrike);
+			document.querySelector("#evis").addEventListener('click', eviscerate);
+		}
+		if(classSelected == "Warrior"){
+			// Warrior
+			document.querySelector("#hs").addEventListener('click', heroicStrike);
+			document.querySelector("#ms").addEventListener('click', mortalStrike);
+		}
+		if(classSelected == "Mage"){
+			// Mage
+			document.querySelector("#fireball").addEventListener('click', fireball);
+			document.querySelector("#frostbolt").addEventListener('click', frostbolt);
+		}
+	}
 	
 	// Flee function
 	creatureBox.style.visibility="hidden";
@@ -1625,7 +1696,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 			creatureMap = charData[8];
 			nameChar = charData[9];
 			rage = charData[10];
-			rageMax = charData[11]
+			rageMax = charData[11];
 		}
 		if(statData != null){
 			atk = statData[0];
@@ -1832,6 +1903,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 	}else{
 		load();
 	}
+	abilityBarLoader();
 
 	// Level Selection & determine creature depending on level selected
 	for(let i = 0; i<mapSel.length; i++){
