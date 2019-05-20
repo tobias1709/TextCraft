@@ -64,8 +64,6 @@ document.addEventListener("DOMContentLoaded", () =>{
 	let round = 0;
 	let zoneRan = 0;
 
-	
-
 	// Object Oriented Programming
 	let murloc = new Creature();
 	murloc.max = 3;
@@ -191,7 +189,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 	devilsaur.max = 39;
 	devilsaur.min = 36;
 	devilsaur.creatureName = ["Devilsaur"];
-	devilsaur.creatureImage= ["img/creatures/BeastMastery.png"];
+	devilsaur.creatureImage= ["img/creatures/beastMastery.png"];
 	devilsaur.creatureMap= "Un'goro Crater";
 	devilsaur.creatureSpecial= ["Stomp"];
 	devilsaur.specialRound= [3];
@@ -300,8 +298,8 @@ document.addEventListener("DOMContentLoaded", () =>{
 	let mapArrived = false;
 
 	// Quests
-	// Havn't done this part yet
 
+	let activeQuest = [];
 
 	// JSON LocalStorage
 	// Character
@@ -326,8 +324,6 @@ document.addEventListener("DOMContentLoaded", () =>{
 	let invStorage = "invData";
 
 	let roll;
-
-	
 
 	// Selectors
 	let characterName = document.querySelector("#inputName");
@@ -376,7 +372,9 @@ document.addEventListener("DOMContentLoaded", () =>{
 	let fightBook = document.querySelector("#fightbook");
 
 	// Quest
-	let activeQuest = [];
+	let quest_obj_1Sel = document.querySelector("#quest_obj_1");
+
+	let quest_req_1Sel = document.querySelector("#quest_req_1");
 
 	// Inventory
 	let hPotSel = document.querySelector("#hPot");
@@ -668,7 +666,6 @@ document.addEventListener("DOMContentLoaded", () =>{
 	document.querySelector("#plus3").addEventListener('click', intellect); 
 	document.querySelector("#plus4").addEventListener('click', stamina); 
 
-
 	function strength(){
 		if(sp > 0){
 			str++;
@@ -840,7 +837,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 		if(mPot > 0){
 			if(mana < manaMax){
 				mana+= (manaMax * 0.4);
-				mainLog = "You used a <span>Health Potion</span> and <b>regained " + Math.floor((manaMax*0.4)) + " mana.</b>";
+				mainLog = "You used a <span>Mana Potion</span> and <b>restored " + Math.floor((manaMax*0.4)) + " mana.</b>";
 				logger();
 				mPot--;
 				if(mana > manaMax){
@@ -869,11 +866,11 @@ document.addEventListener("DOMContentLoaded", () =>{
 		mapArrived = true;
 		mainLog = "You start your adventure in <span> Elwynn Forest.</span>";
 		if(classSave == true){
-			mainLog = "You return your adventure at <span>The " + creatureList[creatureRan].creatureMap + "</span>."
-			addQuests(creatureRan);
+			mainLog = "You return your adventure at <span>The " + creatureList[creatureRan].creatureMap + "</span>.";
 		}
 		RandomLevel(creatureList[creatureRan].max, creatureList[creatureRan].min);
 		logger();
+		addQuests(creatureRan);
 		updater();
 	}, );
 
@@ -1057,6 +1054,8 @@ document.addEventListener("DOMContentLoaded", () =>{
 				if(x.killCount == x.creatureKillsRequired){
 					gold += x.questRewardGold;
 					activeQuest.splice(activeQuest.indexOf(x), 1);
+					mainLog = "<b>You completed a quest!</b>";
+					logger();
 				}
 				updateQuests();
 			}
@@ -1066,8 +1065,8 @@ document.addEventListener("DOMContentLoaded", () =>{
 	function addQuests(i){
 		activeQuest = [];
 		creatureList[i].creatureName.forEach(x => {
-			let killCount = Math.floor(Math.random() * Math.floor(9) + 2);
-			activeQuest.push(new Quest("Kill " + killCount + " " + x + "s", killCount + Math.floor(Math.random() * Math.floor(3)), null, x, killCount))
+			let killCount = Math.floor(Math.random() * Math.floor(4) + 2);
+			activeQuest.push(new Quest("Kill " + killCount + " " + x + "s", killCount + Math.floor(Math.random() * Math.floor(3)), null, x, killCount));
 		});
 		updateQuests();
 	}
@@ -1090,6 +1089,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 			logger();
 		});
 	}
+
 
 	// Creature functions & actions
 	function creatureKilled(){
@@ -1467,7 +1467,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 	function getPlayer(playerMap){
 		for(let i=0; i < activePlayers.length; i++){
 			if(playerMap == activePlayers[i].name){
-				mainLog = "You see the following nearby players: <b>" + activePlayers[i].players + "</b> in " + creatureList[creatureRan].creatureMap + ".";
+				mainLog = "The following players are in " + creatureList[creatureRan].creatureMap + " right now: <b>" + activePlayers[i].players +  ".</b>";
 				logger();
 			}
 		}
@@ -1772,7 +1772,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 		}
 	}
 
-
+	// Updates all visuals on the site and manages the majority of the calculated numbers
 	updater();
 	function updater(){
 		startUp();

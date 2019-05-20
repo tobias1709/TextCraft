@@ -310,19 +310,19 @@ span.hoverable {
     margin: 0 auto;
     position: absolute;
     text-transform: uppercase;
-    top: -4px;
-    right: -25em;
+    bottom: -40px;
+    right: -10em;
     display: none;
     padding: 4px 20px;
     z-index: 100
 }
 
-p.hoverable {
+.hoverable {
     position: relative;
     z-index: 100
 }
 
-p.hoverable:hover span.hoverable {
+.hoverable:hover span.hoverable {
     position: absolute;
     display: flex;
     width: 21.5em;
