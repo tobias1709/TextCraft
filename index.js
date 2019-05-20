@@ -803,7 +803,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 		if(mPot > 0){
 			if(mana < manaMax){
 				mana+= (manaMax * 0.4);
-				mainLog = "You used a <span>Health Potion</span> and <b>regained " + Math.floor((manaMax*0.4)) + " mana.</b>";
+				mainLog = "You used a <span>Mana Potion</span> and <b>restored " + Math.floor((manaMax*0.4)) + " mana.</b>";
 				logger();
 				mPot--;
 				if(mana > manaMax){
@@ -833,10 +833,10 @@ document.addEventListener("DOMContentLoaded", () =>{
 		mainLog = "You start your adventure in <span> Elwynn Forest.</span>";
 		if(classSave == true){
 			mainLog = "You return your adventure at <span>The " + creatureList[creatureRan].creatureMap + "</span>.";
-			addQuests(creatureRan);
 		}
 		RandomLevel(creatureList[creatureRan].max, creatureList[creatureRan].min);
 		logger();
+		addQuests(creatureRan);
 		updater();
 	}, );
 
@@ -1013,8 +1013,6 @@ document.addEventListener("DOMContentLoaded", () =>{
 	}
 
 	// Create quest functions below
-
-	// Create quest functions below
 	function questUpdater(creature){
 		activeQuest.forEach(x => {
 			if(x.creatureName == creature){
@@ -1022,6 +1020,8 @@ document.addEventListener("DOMContentLoaded", () =>{
 				if(x.killCount == x.creatureKillsRequired){
 					gold += x.questRewardGold;
 					activeQuest.splice(activeQuest.indexOf(x), 1);
+					mainLog = "<b>You completed a quest!</b>";
+					logger();
 				}
 				updateQuests();
 			}
@@ -1031,8 +1031,8 @@ document.addEventListener("DOMContentLoaded", () =>{
 	function addQuests(i){
 		activeQuest = [];
 		creatureList[i].creatureName.forEach(x => {
-			let killCount = Math.floor(Math.random() * Math.floor(9) + 2);
-			activeQuest.push(new Quest("Kill " + killCount + " " + x + "s", killCount + Math.floor(Math.random() * Math.floor(3)), null, x, killCount))
+			let killCount = Math.floor(Math.random() * Math.floor(4) + 2);
+			activeQuest.push(new Quest("Kill " + killCount + " " + x + "s", killCount + Math.floor(Math.random() * Math.floor(3)), null, x, killCount));
 		});
 		updateQuests();
 	}
@@ -1060,6 +1060,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 	// Creature functions & actions
 	function creatureKilled(){
 		if(creatureList[creatureRan].creatureHp <= 0){
+			questUpdater(creatureList[creatureRan].creatureName[zoneRan]);
 			creatureBox.style.visibility="hidden";
 			creatureBar.style.zIndex="-1";
 			gold+= creatureList[creatureRan].goldGain;
