@@ -13,9 +13,8 @@
 
 body {
     background-image: url("img/winterspring.jpg");
-    background-size: cover;
-    background-position: center;
-    height: auto
+    background-repeat: no-repeat;
+    height: auto;
 }
 
 #chatBox {
@@ -260,7 +259,7 @@ p {
     width: 8.9em;
     margin: 0 .5em;
     border: 10px solid transparent;
-    border-image: url(/img/naxx-border.png) 70 round
+    border-image: url(/img/undead-borders.png) 70 round
 }
 
 .place {
@@ -547,7 +546,7 @@ button {
     margin: .5em;
     border: 20px solid transparent;
     border-radius: 10px;
-    border-image: url(/img/naxx-border.png) 100 round;
+    border-image: url(/img/undead-borders.png) 40 round;
     background-image: url(/img/Templ.png)
 }
 

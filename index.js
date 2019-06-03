@@ -10,15 +10,12 @@ document.addEventListener("DOMContentLoaded", () =>{
 	let classSelected;
 	let hp;
 	let hpMax;
-	let hpBar;
 	let mana;
 	let manaMax;
-	let manaBar;
 	let rage;
 	let rageMax;
 	let energy;
 	let energyMax;
-	let energyBar;
 	
 	// Inventory
 	let hPot;
@@ -58,79 +55,31 @@ document.addEventListener("DOMContentLoaded", () =>{
 	let zoneRan = 0;
 
 	// Object Oriented Programming
-	let murloc = new Creature();
-	murloc.max = 3;
-	murloc.min = 1;
-	murloc.creatureName = ["Murloc Warrior", "Murloc Oracle"];
-	murloc.creatureImage= ["img/creatures/murloc.png", "img/creatures/murlocOracle.png"];
-	murloc.creatureMap= "Elwynn Forest";
-	murloc.creatureSpecial= ["Fish Swing", "Frostbolt"];
-	murloc.specialRound= [4, 5];
-	murloc.specialBonus= [4, 6];
+	let murloc = new Creature(3, 1, ["Murloc Warrior", "Murloc Oracle"], ["img/creatures/murloc.png", "img/creatures/murlocOracle.png"], "Elwynn Forest", ["Fish Swing", "Frostbolt"], [4, 5], [4, 6]);
+	
+	let bandit = new Creature(6, 3, ["Bandit", "Boar"], ["img/creatures/bandit.png", "img/creatures/boar.png" ], "Westfall", ["Backstab", "Charge"], [2, 4], [2, 3]);
 
-	let bandit = new Creature();
-	bandit.max = 6;
-	bandit.min = 3;
-	bandit.creatureName = ["Bandit", "Boar"];
-	bandit.creatureImage= ["img/creatures/bandit.png", "img/creatures/boar.png" ];
-	bandit.creatureMap= "Westfall";
-	bandit.creatureSpecial= ["Backstab", "Charge"];
-	bandit.specialRound= [2, 4];
-	bandit.specialBonus= [2, 3];
+	let worgen = new Creature(9, 6, ["Worgen", "Wolf"], ["img/creatures/worgen.png", "img/creatures/wolf.png"], "Duskwood", ["Shred", "Rip"], [2, 3], [4, 5]);
 
-	let worgen = new Creature();
-	worgen.max = 9;
-	worgen.min = 6;
-	worgen.creatureName = ["Worgen", "Wolf"];
-	worgen.creatureImage= ["img/creatures/worgen.png", "img/creatures/wolf.png"];
-	worgen.creatureMap= "Duskwood";
-	worgen.creatureSpecial= ["Shred", "Rip"];
-	worgen.specialRound= [2, 3];
-	worgen.specialBonus= [4, 5];
+	let defias = new Creature(12, 9, ["Defias Pillager", "Defias Trapper"], ["img/creatures/pillager.png", "img/creatures/bandit.png"], "Deadmines", ["Fireball", "Backstab"], [6, 2], [14, 4]);
 
-	let defias = new Creature();
-	defias.max = 12;
-	defias.min = 9;
-	defias.creatureName = ["Defias Pillager", "Defias Trapper"];
-	defias.creatureImage= ["img/creatures/pillager.png", "img/creatures/bandit.png"];
-	defias.creatureMap= "Deadmines";
-	defias.creatureSpecial= ["Fireball", "Backstab"];
-	defias.specialRound= [6, 2];
-	defias.specialBonus= [14, 4];
+	let crocodile = new Creature(15, 12, ["Crocalisk", "Crimson Whelp"], ["img/creatures/croc.png", "img/creatures/whelp.png"], "Wetlands", ["Snap", "Spit Fire"], [3, 5], [6, 8]);
 
-	let crocodile = new Creature();
-	crocodile.max = 15;
-	crocodile.min = 12;
-	crocodile.creatureName = ["Crocalisk", "Crimson Whelp"];
-	crocodile.creatureImage= ["img/creatures/croc.png", "img/creatures/whelp.png"];
-	crocodile.creatureMap= "Wetlands";
-	crocodile.creatureSpecial= ["Snap", "Spit Fire"];
-	crocodile.specialRound= [3, 5];
-	crocodile.specialBonus= [6, 8];
-
-	let bear = new Creature();
-	bear.max = 18;
-	bear.min = 15;
-	bear.creatureName = ["Bear", "Raptor"];
-	bear.creatureImage= ["img/creatures/bear.png", "img/creatures/raptor.png"];
-	bear.creatureMap= "Hillsbrad";
-	bear.creatureSpecial= ["Swipe", "Ravage"];
-	bear.specialRound= [2, 4];
-	bear.specialBonus= [4, 7];
+	let bear = new Creature(18, 15, ["Bear", "Raptor"], ["img/creatures/bear.png", "img/creatures/raptor.png"], "Hillsbrad", ["Swipe", "Ravage"], [2, 4], [4, 7]);
 
 	let lizard = new Creature();
 	lizard.max = 21;
 	lizard.min = 18;
-	lizard.creatureName = ["Basilisk"];
-	lizard.creatureImage= ["img/creatures/lizard.png"];
+	lizard.creatureName = ["Basilisk", "Serpent"];
+	lizard.creatureImage= ["img/creatures/lizard.png", "img/creatures/lizard.png"];
 	lizard.creatureMap= "Thousand Needles";
-	lizard.creatureSpecial= ["Stone Gaze"];
-	lizard.specialRound= [4];
-	lizard.specialBonus= [8];
+	lizard.creatureSpecial= ["Stone Gaze", "Lightning Bolt"];
+	lizard.specialRound= [4, 3];
+	lizard.specialBonus= [8, 6];
 
 	let cenutaur = new Creature();
-	cenutaur.max = 24;
-	cenutaur.min = 21;
+	cenutaur.max = 24; 
+	cenutaur.min = 21; 
 	cenutaur.creatureName = ["Cenutaur"];
 	cenutaur.creatureImage= ["img/creatures/dev.png"];
 	cenutaur.creatureMap= "Maraudon";
