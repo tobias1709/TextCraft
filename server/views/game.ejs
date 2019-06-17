@@ -236,204 +236,27 @@
 						<input id="chatBox" type="text" placeholder="Message:">
 						<button id="fight">Explore</button>
 						<div class="console_buttons--actions">
-								<div class="border exp"><p class="index">Exp: <span id="exp"></span> / <span id="expMax"></span></p><div id="expBar"></div></div>
-						</div>
-							<div id="abilities">
-								<div class="relative" id="auto">
-									<img src="img/abilities/auto.png">
-									<p class="abso">1</p>
-								</div>
-								<div class="rogueA relative" id="sins">
-									<img src="img/abilities/sins.png" >
-									<p class="abso">2</p>
-								</div>
-
-								<div class="mageA relative" id="fireball">
-									<img src="img/abilities/fireball.png" >
-									<p class="abso">2</p>
-								</div>
-								
-								<div class="warriorA relative" id="hs">
-									<img src="img/abilities/heroic.png">
-									<p class="abso">2</p>
-								</div>
-								
-								<div class="rogueA relative"  id="evis">
-									<img src="img/abilities/evis.png">
-									<p class="abso">3</p>
-								</div>
-
-								<div class="mageA relative"  id="frostbolt">
-									<img src="img/abilities/frostbolt.png">
-									<p class="abso">3</p>
-								</div>
-								
-								<div class="warriorA relative" id="ms">
-									<img src="img/abilities/mortal.png">
-									<p class="abso">3</p>
-								</div>
-								
-								<div class="relative" id="auto">
-									<img src="img/creatures/dev.png">
-									<p class="abso">4</p>
-								</div>
-								
-								<div class="relative" id="auto">
-									<img src="img/creatures/dev.png">
-									<p class="abso">5</p>
-								</div>
-								
-								<div class="relative" id="#">
-									<img src="img/creatures/dev.png">
-									<p class="abso">6</p>
-								</div>
-
-								<div class="relative" id="run">
-									<img src="img/abilities/flee.png" id="flee">
-									<p class="abso">7</p>
-								</div>
-								
-								<div class="relative hoverable" id="hPotUse">
-									<img src="img/misc/55_potion_potion.png">
-									<p class="abso">8</p>
-									<div class="amount">
-										<p><span class="hoverable">Recover 40% of your hp.</span><span id="hPot"></span></p>
-									</div>	
-								</div>
-								
-								<div class="relative hoverable" id="mPotUse">
-									<img src="img/misc/76_potion_potion.png">
-									<p class="abso">9</p>
-									<div class="amount">
-										<p><span class="hoverable">Recover 40% of your mana.</span><span id="mPot"></span></p>
-									</div>
-								</div>
-								
-								<div class="relative hoverable" id="foodUse">
-									<img src="img/misc/Food_16.png">
-									<p class="abso">=</p>
-									<div class="amount">
-										<p><span class="hoverable">Recover 70% of your hp.</span><span id="food"></span></p>
-									</div>
-								</div>
-								
-								<div class="relative hoverable" id="waterUse">
-									<img src="img/misc/07_4.png">
-									<p class="abso">+</p>
-									<div class="amount">
-										<p><span class="hoverable">Recover 70% of your mana.</span><span id="water"></span></p>
-									</div>
-								</div>		
+							<div class="border exp"><p class="index">Exp: <span id="exp"></span> / <span id="expMax"></span></p><div id="expBar">
 							</div>
+						</div>
+					</div>
+						<%- include('partials/abilities') %>
 					</div>
 				</div>
 				<div>
-					<div style="align-self: flex-start;" class="resource box">
-						<div id="creature" >
-							<div class="creatureProfile">
-								<div>
-									<h3>Level <span id="creatureLevel"></span></h3>
-								
-									<p><span id="creatureName"></span></p>
-								</div>
-								<div>
-									<img id="creatureImg" src="img/creatures/murloc.png">
-								</div>
-							</div>
-							<div class="border creatureHp"><p class="index">HP: <span id="creatureHp"></span> / <span id="creatureHpMax"></span></p><div id="creatureHpBar"></div></div>
-							<p>Attack: <span id="creatureAtk"></span>&nbsp-&nbsp<span id="creatureAtkMax"></span></p>
-							<div class="border creatureSpecial"><p class="index"><span id="specialAttack"></span> <span id="specialRound"></span> / <span id="specialRoundMax"></span></p><div id="specialRoundBar"></div></div>
-						</div>
-						
-					</div>
-
-					<div id="questlog" class="box">
-						<h3>Quest Log</h3>
-						
-						<div class="stats">
-							<div class="objective">
-							</div>
-							<div style="display: flex; flex-direction: column;">
-								<button id="quest_btn_1">Deliver</button>
-							</div>
-							<div class="questAmount">
-								<p><span id="quest_obj_1"></span> / <span id="quest_req_1"></span></p>
-								<p><span id="quest_obj_2"></span> / <span id="quest_req_2"></span></p>
-								<p<span id="quest_obj_3"></span> / <span id="quest_req_3"></span></p>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				
-
-			</div>
-			
-			<div style="margin-bottom: 0;" class="invQ">
-			
-				<div id="levelSel">
-					<button>Searing Gorge</button>
-					<button>Stratholme (D)</button>
-					<button>Un'goro Crater</button>
-					<button>Burning Steppes</button>
-					<button>Western Plaguelands</button>
-					<button>Blackrock Spire (D)</button>
-					<button>Eastern Plaguelands</button>
-					<button>Silithus</button>
-					<button>Molten Core (R)</button>
-					<button>Blackwing Lair (R)</button>
+					<%- include('partials/creature') %>
+					<%- include('partials/questlog') %>
 				</div>
 			</div>
+			
+			<%- include('partials/highLevels') %>
+
 			<div class="place">
-			
-			
-			
-				
+				<%- include('partials/equipment') %>
 
-				<div id="equipment" class="box">
-					<h3>Equipment</h3>
-					
-					<div class="stats">
-						<div class="equipSlot">
-							<p>Helm: </p>
-							<p>Armor: </p>
-							<p>Weapon: </p>
-						</div>
-						<div class="equipped">
-							<p id="helm"></p>
-							<p id="chest"></p>
-							<p id="weapon"></p>
-						</div>
-					</div>
-				</div>
+				<%- include('partials/leaderboard') %>
 
-				<div class="box">
-						<h2 style="font-size: 2.2em; padding-bottom: 15px; letter-spacing: 5px;">Leaderboard</h2>
-						<p>1. <span id="first">Defuzed</span> <span id="firstLvl">59</span> <span id="firstClass">Hunter</span></p>
-						<p>2. <span id="second">Ariande</span> <span id="secondLvl">53</span> <span id="secondClass">Rogue</span></p>
-						<p>3. <span id="third">Vildpus</span> <span id="thirdLvl">41</span> <span id="thirdClass">Mage</span></p>
-						<p>4. <span id="four">Bobby</span> <span id="fourLvl">32</span> <span id="fourClass">Warrior</span></p>
-						<p>5. <span id="five">Nixx</span> <span id="fiveLvl">17</span> <span id="fiveClass">Rogue</span></p>
-					</div>
-
-				<div class="box">
-						<h3>Shop</h3>
-						
-						<div class="stats">
-								<div>
-								<p class="hoverable"><span class="hoverable">Recover 40% of your hp.</span>Health Potion: <span id="hPotBuySel"></span><img style="margin: 0 0 -5px 0px;" src="img/misc/gold.png"></p>
-								<p class="hoverable"><span class="hoverable">Recover 40% of your hp.</span>Mana Potion: <span id="mPotBuySel"></span><img style="margin: 0 0 -5px 0px;" src="img/misc/gold.png"></p>
-								<p class="hoverable"><span class="hoverable">Recover 70% of your hp.</span>Food: <span id="foodBuySel"></span><img style="margin: 0 0 -5px 0px;" src="img/misc/gold.png"></p>
-								<p class="hoverable"><span class="hoverable">Recover 70% of your hp.</span>Water: <span id="waterBuySel"></span><img style="margin: 0 0 -5px 0px;" src="img/misc/gold.png"></p>
-							</div>
-							<div class="plus">
-								<button id="hPotBuy">Buy</button>
-								<button id="mPotBuy">Buy</button>
-								<button id="foodBuy">Buy</button>
-								<button id="waterBuy">Buy</button>
-							</div>
-						</div>
-					</div>
+				<%- include('partials/shop') %>
 			</div>
 			<p style="position: absolute; top: 100px; left: 30px;">
 				<a href="https://www.barrens.chat"><img src="img/bc.png"></a>
@@ -441,13 +264,11 @@
 
 			<div class="local">
 				<button id="reset" style="position: absolute; top: 20px; right: 10px;"> reset</button>
-				<a href="changelog.html"><button id="reset" style="position: absolute; top: 20px; left: 10px;">Changelog</button></a>
+				<a href="changelog"><button id="reset" style="position: absolute; top: 20px; left: 10px;">Changelog</button></a>
 			</div>
 		</div>
 	</div>
-	<script src="quest.js"></script>
-	<script src="creature_OOP.js"></script>
-	<script src="index.js"></script>
+	<%- include('partials/scripts.ejs') %>
 </body>
 </html>
 

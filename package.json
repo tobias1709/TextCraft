@@ -1,0 +1,29 @@
+{
+  "name": "textcraft",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rts-cmk/the-awesome-newspage.git"
+  },
+  "keywords": [],
+  "author": "Jack Baltzer",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rts-cmk/the-awesome-newspage/issues"
+  },
+  "homepage": "https://github.com/rts-cmk/the-awesome-newspage#readme",
+  "dependencies": {
+    "date-and-time": "^0.7.0",
+    "ejs": "^2.6.1",
+    "express": "^4.17.0",
+    "morgan": "^1.9.1",
+    "mysql2": "^1.6.5",
+    "nodemon": "^1.19.1"
+  }
+}

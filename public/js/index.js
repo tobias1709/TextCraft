@@ -314,9 +314,6 @@ document.addEventListener("DOMContentLoaded", () =>{
 	let fightBook = document.querySelector("#fightbook");
 
 	// Quest
-	let quest_obj_1Sel = document.querySelector("#quest_obj_1");
-
-	let quest_req_1Sel = document.querySelector("#quest_req_1");
 
 	// Inventory
 	let hPotSel = document.querySelector("#hPot");
@@ -968,20 +965,22 @@ document.addEventListener("DOMContentLoaded", () =>{
 				x.killCount++;
 				if(x.killCount == x.creatureKillsRequired){
 					gold += x.questRewardGold;
+					exp += x.questRewardExp;
 					activeQuest.splice(activeQuest.indexOf(x), 1);
-					mainLog = "<b>You completed a quest!</b>";
+					mainLog = "<b>You completed a quest and gaiend " + x.questRewardGold + "g and " + x.questRewardExp + " exp!</b>";
 					logger();
 				}
 				updateQuests();
 			}
 		});
 	}
-
+	
 	function addQuests(i){
 		activeQuest = [];
 		creatureList[i].creatureName.forEach(x => {
-			let killCount = Math.floor(Math.random() * Math.floor(4) + 2);
-			activeQuest.push(new Quest("Kill " + killCount + " " + x + "s", killCount + Math.floor(Math.random() * Math.floor(3)), null, x, killCount));
+			let killCount = 3;
+			console.log(creatureList[creatureRan].expGain);
+			activeQuest.push(new Quest("Kill " + killCount + " " + x + "s", killCount + Math.floor(Math.random() * Math.floor(3)), null, x, killCount, creatureList[i].expGain + 50 * killCount));
 		});
 		updateQuests();
 	}
@@ -999,9 +998,6 @@ document.addEventListener("DOMContentLoaded", () =>{
 			let questPara = document.createElement("p");
 			questPara.innerHTML = x.questName;
 			questClass[0].appendChild(questPara);
-
-			mainLog = "New quest: " + x.questName + "!";
-			logger();
 		});
 	}
 
@@ -1322,7 +1318,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 	
 
 
-	// Used to get information from my database, currently under development (Fetch work, backend doesn't)
+	// // Used to get information from my database, currently under development (Fetch work, backend doesn't)
 	// fetch("http://boxcode.dk/getAllUsers")
 	// .then((response) => {
 	// 	return response.json();
