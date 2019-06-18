@@ -14,6 +14,11 @@ app.use(logger('dev', {
    skip: req => (!req.url.endsWith(".html") && req.url.indexOf('.') > -1)
 }));
 
+const bodyParser = require('body-parser');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+   extended: true
+}));
 
 
 //+ sæt viewengine til ejs 

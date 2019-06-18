@@ -436,7 +436,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 			classSelected = "Warrior";
 			classSave = true;
 			// Character
-			hpMax = 99;
+			hpMax = 154;
 			hp = hpMax;
 			rage = 0;
 			rageMax = 100;
@@ -470,7 +470,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 			mana = manaMax;
 			energy = 0;
 			energyMax = 0;
-			hpMax = 91;
+			hpMax = 122;
 			hp = hpMax;
 			// Extra inventory
 			mPot = 1;
@@ -488,7 +488,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 		}
 	});
 
-	// Mage
+	// Rogue
 	document.querySelector("#rogue").addEventListener('click', () =>{
 		validator();
 		if(nameWritten == false){
@@ -497,7 +497,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 			classSelected = "Rogue";
 			classSave = true;
 			// Character
-			hpMax = 92;
+			hpMax = 147;
 			hp = hpMax;
 			mana = 0;
 			manaMax = 0;
@@ -778,7 +778,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 		mapArrived = true;
 		mainLog = "You start your adventure in <span> Elwynn Forest.</span>";
 		if(classSave == true){
-			mainLog = "You return your adventure at <span>The " + creatureList[creatureRan].creatureMap + "</span>.";
+			mainLog = "You return your adventure in <span> " + creatureList[creatureRan].creatureMap + "</span>.";
 		}
 		RandomLevel(creatureList[creatureRan].max, creatureList[creatureRan].min);
 		logger();
@@ -978,9 +978,9 @@ document.addEventListener("DOMContentLoaded", () =>{
 	function addQuests(i){
 		activeQuest = [];
 		creatureList[i].creatureName.forEach(x => {
-			let killCount = 3;
+			let killCount = Math.floor(Math.random() * Math.floor(4) + 2);
 			console.log(creatureList[creatureRan].expGain);
-			activeQuest.push(new Quest("Kill " + killCount + " " + x + "s", killCount + Math.floor(Math.random() * Math.floor(3)), null, x, killCount, creatureList[i].expGain + 50 * killCount));
+			activeQuest.push(new Quest("Kill " + killCount + " " + x + "s", killCount + Math.floor(Math.random() * Math.floor(3)), null, x, killCount, expMax*0.1*killCount));
 		});
 		updateQuests();
 	}
@@ -1318,37 +1318,22 @@ document.addEventListener("DOMContentLoaded", () =>{
 	
 
 
-	// // Used to get information from my database, currently under development (Fetch work, backend doesn't)
-	// fetch("http://boxcode.dk/getAllUsers")
-	// .then((response) => {
-	// 	return response.json();
-	// })
-	// .then((users) => {
-	// 	leaderboard(users);
-	// });
+	// Used to get information from my database, currently under development (Fetch work, backend doesn't)
+	fetch("http://localhost:3000/users")
+	.then((response) => {
+		return response.json();
+	})
+	.then((users) => {
+		leaderboard(users);
+	});
 
 	// Used to display leaderboard from database (Working)
 	function leaderboard(users){
-		// First place
-		firstName.innerHTML = users[0].name;
-		firstLevel.innerHTML = users[0].level;
-		firstClass.innerHTML = users[0].class;
-		// Second place
-		secondName.innerHTML = users[1].name;
-		secondLevel.innerHTML = users[1].level;
-		secondClass.innerHTML = users[1].class;
-		// Third place
-		thirdName.innerHTML = users[2].name;
-		thirdLevel.innerHTML = users[2].level;
-		thirdClass.innerHTML = users[2].class;
-		// Fourth place
-		fourName.innerHTML = users[3].name;
-		fourLevel.innerHTML = users[3].level;
-		fourClass.innerHTML = users[3].class;
-		// Fifth place
-		fiveName.innerHTML = users[4].name;
-		fiveLevel.innerHTML = users[4].level;
-		fiveClass.innerHTML = users[4].class;
+		let rank = 1;
+		users.forEach(user => {
+			document.querySelector('#leaderboard').innerHTML+= `<p>` + rank + `. ` + user.name + ` ` + user.level + ` ` + user.class + `</p>`;
+			rank++;
+		});
 	}
 
 	// Key Press functions and checker
@@ -1363,26 +1348,26 @@ document.addEventListener("DOMContentLoaded", () =>{
 		return nameChar.charAt(0).toUpperCase() + nameChar.slice(1);
 	}
 
-	// Test zone
-	let activePlayers = [
-		{
-			name: "Elwynn Forest",
-			players: [" Defuzed", " Ariande"]
-		},
-		{
-			name: "Westfall",
-			players: [" Nixx", " Bobby"]
-		}
-	];
+	// // Test zone
+	// let activePlayers = [
+	// 	{
+	// 		name: "Elwynn Forest",
+	// 		players: [" Defuzed", " Ariande"]
+	// 	},
+	// 	{
+	// 		name: "Westfall",
+	// 		players: [" Nixx", " Bobby"]
+	// 	}
+	// ];
 
-	function getPlayer(playerMap){
-		for(let i=0; i < activePlayers.length; i++){
-			if(playerMap == activePlayers[i].name){
-				mainLog = "The following players are in " + creatureList[creatureRan].creatureMap + " right now: <b>" + activePlayers[i].players +  ".</b>";
-				logger();
-			}
-		}
-	}
+	// function getPlayer(playerMap){
+	// 	for(let i=0; i < activePlayers.length; i++){
+	// 		if(playerMap == activePlayers[i].name){
+	// 			mainLog = "The following players are in " + creatureList[creatureRan].creatureMap + " right now: <b>" + activePlayers[i].players +  ".</b>";
+	// 			logger();
+	// 		}
+	// 	}
+	// }
 
 	// Test zone end
 
@@ -1784,10 +1769,9 @@ document.addEventListener("DOMContentLoaded", () =>{
 				creatureMap = i;
 				creatureRan = creatureMap;
 				mapArrived = true;
-				mainLog = "You travelled to <span>The " + creatureList[i].creatureMap + "</span>.";
+				mainLog = "You travelled to <span> " + creatureList[i].creatureMap + "</span>.";
 				logger();
 				addQuests(i);
-				getPlayer(creatureList[i].creatureMap);
 				RandomLevel(creatureList[creatureRan].max, creatureList[creatureRan].min);
 				if(level < i){
 					mainLog = "You hear a voice in your head saying:";
