@@ -16,13 +16,32 @@
 </head>
 
 <body>
-	<h1><%- title %></h1>
+	<h1>Title</h1>
 	<script>
-		let dataJSON = `<%- characters %>`
+		let data = `[
+			{
+				"class": "Warrior"
+			},
+			{
+				"class": "Mage"
+			}
+		]`
 
-		let data = JSON.parse(dataJSON);
-		console.log(data);
+		postData('http://localhost:3000/test', {answer: 42})
+		.then(data => console.log(JSON.stringify(data))) // JSON-string from `response.json()` call
+		.catch(error => console.error(error));
 
+		function postData(url = '', data = {}) {
+		// Default options are marked with *
+			return fetch(url, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(data), // body data type must match "Content-Type" header
+			})
+			.then(response => response.json()); // parses JSON response into native Javascript objects 
+		}
 	</script>
 
 </html>

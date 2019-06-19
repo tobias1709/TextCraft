@@ -20,7 +20,6 @@ app.use(bodyParser.urlencoded({
    extended: true
 }));
 
-
 //+ sæt viewengine til ejs 
 app.set('view engine', 'ejs');
 // peg på den mappe hvor alle views filerne er placeret

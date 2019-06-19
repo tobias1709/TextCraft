@@ -40,7 +40,6 @@ document.addEventListener("DOMContentLoaded", () =>{
 	let atk;
 	let spellAtk;
 	let spellAtkMax;
-	let spellCost;
 	let sp;
 	let str;
 	let agi;
@@ -103,7 +102,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 	troll.creatureName = ["Witch Doctor"];
 	troll.creatureImage= ["img/creatures/witchdoctor.png"];
 	troll.creatureMap= ["Zul'Farak"];
-	troll.creatureSpecial= "Voodoo";
+	troll.creatureSpecial= ["Hex"];
 	troll.specialRound= [10];
 	troll.specialBonus= [20];
 
@@ -113,7 +112,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 	warGolem.creatureName = ["War Golem"];
 	warGolem.creatureImage= ["img/creatures/mudgolem.png"];
 	warGolem.creatureMap= "Searing Gorge";
-	warGolem.creatureSpecial= ["ThunderStump"];
+	warGolem.creatureSpecial= ["Thunder Stump"];
 	warGolem.specialRound= [5];
 	warGolem.specialBonus= [10];
 
@@ -251,7 +250,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 	let characterStorage = "playerData";
 
 	// Stats
-	let stat = [atk, spellAtk, spellAtkMax, spellCost, sp, str, agi, int, sta];
+	let stat = [atk, spellAtk, spellAtkMax, sp, str, agi, int, sta];
 	let statString = JSON.stringify(stat);
 	let statStorage = "statData";
 
@@ -289,9 +288,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 
 	// Stats
 	let spSel = document.querySelector("#sp");
-	let atkSel = document.querySelector("#atk");
 	let atkMaxSel = document.querySelector("#atkMax");
-	let spellAtkSel = document.querySelector("#spellAtk");
 	let spellAtkMaxSel = document.querySelector("#spellAtkMax");
 	let strSel = document.querySelector("#str");
 	let agiSel = document.querySelector("#agi");
@@ -379,8 +376,6 @@ document.addEventListener("DOMContentLoaded", () =>{
 			return false;
 		}
 	}	
-	
-	
 
 	// Generator creatures after level
 	RandomLevel(creatureList[creatureRan].max, creatureList[creatureRan].min);
@@ -418,7 +413,6 @@ document.addEventListener("DOMContentLoaded", () =>{
 		creatureRan = 0;
 		creatureMap = 0;
 		// Spell & Skill
-		spellCost = [0, 14, 26];
 		sp = 0;
 		abilityUseable();
 		updater();
@@ -1297,41 +1291,22 @@ document.addEventListener("DOMContentLoaded", () =>{
 		}, 2000);
 	} 
 
-
-	// Leaderboard
-
-	let firstName = document.querySelector("#first");
-	let firstLevel = document.querySelector("#firstLvl");
-	let firstClass = document.querySelector("#firstClass");
-	let secondName = document.querySelector("#second");
-	let secondLevel = document.querySelector("#secondLvl");
-	let secondClass = document.querySelector("#secondClass");
-	let thirdName = document.querySelector("#third");
-	let thirdLevel = document.querySelector("#thirdLvl");
-	let thirdClass = document.querySelector("#thirdClass");
-	let fourName = document.querySelector("#four");
-	let fourLevel = document.querySelector("#fourLvl");
-	let fourClass = document.querySelector("#fourClass");
-	let fiveName = document.querySelector("#five");
-	let fiveLevel = document.querySelector("#fiveLvl");
-	let fiveClass = document.querySelector("#fiveClass");
-	
+	// // Used to get information from my database, currently under development (Fetch work, backend doesn't)
+	// fetch("http://localhost:3000/leaderboard")
+	// .then((response) => {
+	// 	return response.json();
+	// })
+	// .then((users) => {
+	// 	leaderboard(users);
+	// });
 
 
-	// Used to get information from my database, currently under development (Fetch work, backend doesn't)
-	fetch("http://localhost:3000/leaderboard")
-	.then((response) => {
-		return response.json();
-	})
-	.then((users) => {
-		leaderboard(users);
-	});
-
-	// Used to display leaderboard from database (Working)
-	function leaderboard(users){
+	// Used to display leaderboard from database
+	leaderboard();
+	function leaderboard(){
 		let rank = 1;
-		users.forEach(user => {
-			document.querySelector('#leaderboard').innerHTML+= `<p>` + rank + `. ` + user.character_name + ` ` + user.level + ` ` + user.class_name + `</p>`;
+		characterdata.forEach(player => {
+			document.querySelector('#leaderboard').innerHTML+= `<p>` + rank + `. ` + player.character_name + ` ` + player.level + ` ` + player.class_name + `</p>`;
 			rank++;
 		});
 	}
@@ -1347,27 +1322,6 @@ document.addEventListener("DOMContentLoaded", () =>{
 	String.prototype.capitalize = () => {
 		return nameChar.charAt(0).toUpperCase() + nameChar.slice(1);
 	}
-
-	// // Test zone
-	// let activePlayers = [
-	// 	{
-	// 		name: "Elwynn Forest",
-	// 		players: [" Defuzed", " Ariande"]
-	// 	},
-	// 	{
-	// 		name: "Westfall",
-	// 		players: [" Nixx", " Bobby"]
-	// 	}
-	// ];
-
-	// function getPlayer(playerMap){
-	// 	for(let i=0; i < activePlayers.length; i++){
-	// 		if(playerMap == activePlayers[i].name){
-	// 			mainLog = "The following players are in " + creatureList[creatureRan].creatureMap + " right now: <b>" + activePlayers[i].players +  ".</b>";
-	// 			logger();
-	// 		}
-	// 	}
-	// }
 
 	// Test zone end
 
@@ -1514,71 +1468,80 @@ document.addEventListener("DOMContentLoaded", () =>{
 	}
 
 	function save(){
-		// Character
-		character = [hp, hpMax, mana, manaMax, energy, energyMax, classSave, classSelected, creatureRan, nameChar, rage, rageMax];
-		characterString = JSON.stringify(character);
-		localStorage.setItem(characterStorage, characterString);
+		
 
-		// Stats
-		stat = [atk, spellAtk, spellAtkMax, spellCost, sp, str, agi, int, sta];
-		statString = JSON.stringify(stat);
-		localStorage.setItem(statStorage, statString);
 
-		// Level
-		lvl = [levelPre, level, exp, expMax];
-		lvlString = JSON.stringify(lvl);
-		localStorage.setItem(lvlStorage, lvlString);
 
-		// Inventory
-		inv = [hPot, mPot, gold, food, water];
-		invString = JSON.stringify(inv);
-		localStorage.setItem(invStorage, invString);
+
+
+
+		// // Character
+		// character = [hp, hpMax, mana, manaMax, energy, energyMax, classSave, classSelected, creatureRan, nameChar, rage, rageMax];
+		// characterString = JSON.stringify(character);
+		// localStorage.setItem(characterStorage, characterString);
+
+		// // Stats
+		// stat = [atk, spellAtk, spellAtkMax, sp, str, agi, int, sta];
+		// statString = JSON.stringify(stat);
+		// localStorage.setItem(statStorage, statString);
+
+		// // Level
+		// lvl = [levelPre, level, exp, expMax];
+		// lvlString = JSON.stringify(lvl);
+		// localStorage.setItem(lvlStorage, lvlString);
+
+		// // Inventory
+		// inv = [hPot, mPot, gold, food, water];
+		// invString = JSON.stringify(inv);
+		// localStorage.setItem(invStorage, invString);
 	}
 
-	function load() {
-		let charData = JSON.parse(localStorage.getItem(characterStorage));
-		let statData = JSON.parse(localStorage.getItem(statStorage));
-		let lvlData = JSON.parse(localStorage.getItem(lvlStorage));
-		let invData = JSON.parse(localStorage.getItem(invStorage));
+	// fetchPlayerData();
+	// function fetchPlayerData() {
+	// 	fetch(("http://localhost:3000/players"))
+	// 	.then((response) => {
+	// 		return response.json();
+	// 	})
+	// 	.then((playerdata) => {
+	// 		console.log(playerdata);
+	// 		load();
+	// 	});
+	// }
 
-		if(charData != null){
-			hp = charData[0];
-			hpMax = charData[1];
-			mana = charData[2];
-			manaMax = charData[3];
-			energy = charData[4];
-			energyMax = charData[5];
-			classSave = charData[6];
-			classSelected = charData[7];
-			creatureRan = charData[8];
-			creatureMap = charData[8];
-			nameChar = charData[9];
-			rage = charData[10];
-			rageMax = charData[11]
-		}
-		if(statData != null){
-			atk = statData[0];
-			spellAtk = statData[1];
-			spellAtkMax = statData[2];
-			spellCost = statData[3];
-			sp = statData[4];
-			str = statData[5];
-			agi = statData[6];
-			int = statData[7];
-			sta = statData[8]
-		}
-		if(lvlData != null){
-			levelPre = lvlData[0];
-			level = lvlData[1];
-			exp = lvlData[2];
-			expMax = lvlData[3];
-		}
-		if(invData != null){
-			hPot = invData[0];
-			mPot = invData[1];
-			gold = invData[2];
-			food = invData[3];
-			water = invData[4];
+	function load() {
+		// index will depend on account id when logging in
+		if(characterdata != null){
+			console.log(characterdata);
+			hp = characterdata[0].hp;
+			hpMax = characterdata[0].hpMax;
+			mana = characterdata[0].mana;
+			manaMax = characterdata[0].manaMax;
+			energy = characterdata[0].energy;
+			energyMax = characterdata[0].energyMax;
+			classSave = characterdata[0].extra_save;
+			classSelected = characterdata[0].class_name;
+			creatureRan = characterdata[0].extra_random;
+			creatureMap = characterdata[0].extra_random;
+			nameChar = characterdata[0].character_name;
+			rage = characterdata[0].rage;
+			rageMax = characterdata[0].rageMax;
+			atk = characterdata[0].attack_power;
+			spellAtk = characterdata[0].spell_power / 2;
+			spellAtkMax = characterdata[0].spell_power;
+			sp = characterdata[0].skill_points;
+			str = characterdata[0].strength;
+			agi = characterdata[0].agility;
+			int = characterdata[0].intellect;
+			sta = characterdata[0].stamina;
+			levelPre = characterdata[0].levelPre;
+			level = characterdata[0].level;
+			exp = characterdata[0].exp;
+			expMax = characterdata[0].expMax;
+			hPot = characterdata[0].health_potion;
+			mPot = characterdata[0].mana_potion;
+			gold = characterdata[0].currency;
+			food = characterdata[0].food;
+			water = characterdata[0].water;
 		}
 		barHandler();
 	}
@@ -1669,7 +1632,8 @@ document.addEventListener("DOMContentLoaded", () =>{
 	function updater(){
 		startUp();
 		levelUp();
-
+		barHandler();
+		
 		// Character
 		classPicked.innerHTML = classSelected;
 		characterName.innerHTML = nameChar;
@@ -1703,7 +1667,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 		root.style.setProperty('--specialRoundBar', percentRound + "%");
 
 		// Update barhandler
-		barHandler();
+		
 
 		// Level
 		levelSel.innerHTML = level;
