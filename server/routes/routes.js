@@ -16,19 +16,42 @@ module.exports = (app) => {
 
    app.get('/test', async(req, res, next) => {
       let db = await mysql.connect();
-      let [test] = 100;
-      res.render('changelog', {
-         "test": test
+
+      let [characters] = await db.execute(
+         `SELECT character_name, statsheet.level, classes.class_name FROM characters
+         INNER JOIN classes ON class_id_fk = classes.class_id
+         INNER JOIN statsheet ON characters.statsheet_id_fk = statsheet.statsheet_id 
+         INNER JOIN inventory ON inventory_id_fk = inventory.inventory_id
+         ORDER BY statsheet.level DESC`);
+
+      // let products = [
+      //    {
+      //       "name": "speakers",
+      //       "price": 100
+      //    },
+      //    {
+      //       "name": "Vask",
+      //       "price": 430
+      //    }
+      // ];
+
+
+      res.render('test', {
+         title: "hej",
+         characters: JSON.stringify(characters)
       });
    });
 
-   app.get('/users', async(req, res, next) => {
+   app.get('/leaderboard', async(req, res, next) => {
       let db = await mysql.connect();
-      db.query('SELECT * FROM characters INNER JOIN statsheet ON characters.statsheet_id_fk = statsheet.id INNER JOIN inventory ON inventory_id_fk = inventory.id', 
+      let [characters] = await db.execute(
+      `SELECT character_name, statsheet.level, classes.class_name FROM characters
+      INNER JOIN classes ON class_id_fk = classes.class_id
+      INNER JOIN statsheet ON characters.statsheet_id_fk = statsheet.statsheet_id 
+      INNER JOIN inventory ON inventory_id_fk = inventory.inventory_id
+      ORDER BY statsheet.level DESC`, 
       (err, rows) => {
 			if (err) {
-				console.log(`fejl: ${err}`)
-				console.log(rows);
 				res.send(err)
 			} else {
 				res.send(rows)

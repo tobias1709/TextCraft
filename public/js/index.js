@@ -1319,7 +1319,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 
 
 	// Used to get information from my database, currently under development (Fetch work, backend doesn't)
-	fetch("http://localhost:3000/users")
+	fetch("http://localhost:3000/leaderboard")
 	.then((response) => {
 		return response.json();
 	})
@@ -1331,7 +1331,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 	function leaderboard(users){
 		let rank = 1;
 		users.forEach(user => {
-			document.querySelector('#leaderboard').innerHTML+= `<p>` + rank + `. ` + user.name + ` ` + user.level + ` ` + user.class + `</p>`;
+			document.querySelector('#leaderboard').innerHTML+= `<p>` + rank + `. ` + user.character_name + ` ` + user.level + ` ` + user.class_name + `</p>`;
 			rank++;
 		});
 	}
