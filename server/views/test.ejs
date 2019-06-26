@@ -16,7 +16,7 @@
 </head>
 
 <body>
-	<h1>Title</h1>
+	<h1></h1>
 	<script>
 		let data = `[
 			{
@@ -27,21 +27,18 @@
 			}
 		]`
 
-		postData('http://localhost:3000/test', {answer: 42})
-		.then(data => console.log(JSON.stringify(data))) // JSON-string from `response.json()` call
-		.catch(error => console.error(error));
-
-		function postData(url = '', data = {}) {
-		// Default options are marked with *
-			return fetch(url, {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify(data), // body data type must match "Content-Type" header
-			})
-			.then(response => response.json()); // parses JSON response into native Javascript objects 
-		}
+		fetch('http://localhost:3000/test', {  
+			method: 'POST',  
+			headers: {  
+			'Content-Type': 'application/json' 
+			},  
+			body: JSON.stringify(data)
+		})
+		.then(function (test) {  
+			console.log('Request success: ', test);  
+		})  
+		.catch(function (error) {  
+			console.log('Request failure: ', error);  
+		});
 	</script>
-
 </html>

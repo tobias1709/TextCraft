@@ -18,15 +18,20 @@ module.exports = (app) => {
       });
    });
 
-   app.get('/test', async(req, res, next) => {
-      let db = await mysql.connect();
-      res.render('test', {
-      });
-   });
+   // app.get('/test/:antal/:type', async(req, res, next) => {
+   //    let db = await mysql.connect();
+   //    let [fisk_id] = {
+   //       "antal": req.params.antal,
+   //       "type": req.params.type
+   //    };
+   //    res.render('test', {
+   //       fisk_id: fisk_id
+   //    });
+   // });
 
-   app.post('/test', (req, res, next) => {
-      res.send(req.data);
-   });
+   // app.post('/test', (req, res, next) => {
+   //    res.send(req.body);
+   // });
 
    app.get('/changelog', async(req, res, next) => {
       let db = await mysql.connect();
