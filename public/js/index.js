@@ -53,6 +53,13 @@ document.addEventListener("DOMContentLoaded", () =>{
 	let round = 0;
 	let zoneRan = 0;
 
+	// Classes
+	const classes = {
+		mage: "Mage",
+		rogue: "Rogue",
+		warrior: "Warrior"
+	}
+
 	// Object Oriented Programming
 	let murloc = new Creature(3, 1, ["Murloc Warrior", "Murloc Oracle"], ["img/creatures/murloc.png", "img/creatures/murlocOracle.png"], "Elwynn Forest", ["Fish Swing", "Frostbolt"], [4, 5], [4, 6]);
 	
@@ -1075,6 +1082,40 @@ document.addEventListener("DOMContentLoaded", () =>{
 		cooldownCount--;
 		if(cooldownCount <= 0){
 			cooldownCount = 0;
+		}
+	}
+
+	function abilityToHTML(divClass, divId, imgPath, pclass, pText) {
+        let div = document.createElement('div');
+        let img = document.createElement('img');
+        let p = document.createElement('p');
+
+         div.className = divClass;
+        img.src = imgPath;
+        div.id = divId;
+        p.className = pclass;
+        p.innerHTML = pText;
+
+        div.appendChild(img);
+        div.appendChild(p);
+        abilities.prepend(div);
+	}
+	
+	function abilityCreator(){
+
+		availableAbilities = [new Ability("Auto Attack", 0, "img/abilities/auto.png", "auto", 1)];
+
+		if(classSelected == classes.rogue){
+			availableAbilities.push(new RogueAbility("Sinister Strike", 30,"img/abilities/sins.png", "sins", 2, 0));
+            availableAbilities.push( new RogueAbility("Eviscerate", 30, "img/abilities/evis.png", "evis", 3, 1));
+        }
+        if(classSelected == classes.warrior){
+            availableAbilities.push( new WarriorAbility("Heroic Strike", 30, "img/abilities/heroic.png", "hs", 2));
+            availableAbilities.push(new WarriorAbility("Mortal Strike", 30,"img/abilities/mortal.png", "ms", 3));
+        }
+        if(classSelected == classes.mage){
+            availableAbilities.push(new MageAbility("Fireball", 30,"img/abilities/fireball.png", "fireball", 2));
+            availableAbilities.push( new MageAbility("Frostbolt", 30, "img/abilities/frostbolt.png", "frostbolt", 3));
 		}
 	}
 
