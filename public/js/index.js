@@ -4,6 +4,9 @@ document.addEventListener("DOMContentLoaded", () =>{
 	let questKillClass = document.getElementsByClassName("questAmount");
 	let questClass = document.getElementsByClassName("objective");
 
+	//loaded character data
+	let characterdata;
+
 	// Character
 	let nameWritten = false;
 	let nameChar;
@@ -16,7 +19,8 @@ document.addEventListener("DOMContentLoaded", () =>{
 	let rageMax;
 	let energy;
 	let energyMax;
-	
+	let availableAbilities;
+
 	// Inventory
 	let hPot;
 	let mPot;
@@ -421,10 +425,11 @@ document.addEventListener("DOMContentLoaded", () =>{
 		creatureMap = 0;
 		// Spell & Skill
 		sp = 0;
-		abilityUseable();
+		//abilityUseable();
 		updater();
 		save();
 		startUp();
+		abilityBarLoader();
 		return false;
 	}
 
@@ -434,7 +439,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 		if(nameWritten == false){
 			return false;
 		}else{
-			classSelected = "Warrior";
+			classSelected = classes.warrior;
 			classSave = true;
 			// Character
 			hpMax = 154;
@@ -464,7 +469,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 		if(nameWritten == false){
 			return false;
 		}else{
-			classSelected = "Mage";
+			classSelected = classes.mage;
 			classSave = true;
 			// Character
 			manaMax = 180;
@@ -495,7 +500,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 		if(nameWritten == false){
 			return false;
 		}else{
-			classSelected = "Rogue";
+			classSelected = classes.rogue;
 			classSave = true;
 			// Character
 			hpMax = 147;
@@ -522,45 +527,71 @@ document.addEventListener("DOMContentLoaded", () =>{
 	let atkMax = atk / 2;
 	let atkMin = atk / 2;
 
+	let abilities = document.getElementById("abilities");
+	let abilitiesVisible = false;
 
-	// Class Spells Selected
-	let rogueSpells = document.querySelectorAll(".rogueA");
-	let warriorSpells = document.querySelectorAll(".warriorA");
-	let mageSpells = document.querySelectorAll(".mageA");
+	function abilityBarLoader(){
+        abilityCreator();
+ 
+        //remove all generaded abilities in the html if they exist
+        if(abilitiesVisible){
+            abilitiesVisible = false;
+            for(let i = 0; i < 3; i++){
+                abilities.removeChild(abilities.children[0]);
+            }
+        }
+        else{
+            abilitiesVisible = true;
+        }
+ 
+        //need to reverse to get the right order because we are adding them first in a div with .prepend()
+        availableAbilities.reverse().forEach(x => {
+            if(classSelected == classes.rogue){
+                abilityToHTML("rogueA relative generated", x.shortName, x.iconPath, "abso", x.abilityNumber);
+            }
+            if(classSelected == classes.warrior){
+                abilityToHTML("warriorA relative generated", x.shortName, x.iconPath, "abso", x.abilityNumber);
+            }
+            if(classSelected == classes.mage){
+                abilityToHTML("mageA relative generated", x.shortName, x.iconPath, "abso", x.abilityNumber);
+            }
+        });
+        addListeners();
+    }
 
-
-	// Ability & Spellbook validatior
-	function abilityUseable(){
-		if(classSelected == "Rogue"){
-			for(let i = 0; i<rogueSpells.length; i++){
-				rogueSpells[i].style.display="block";
-			}
-			comboP.style.display="block";
-		}else{
-			for(let i = 0; i<rogueSpells.length; i++){
-				rogueSpells[i].style.display="none";
-			}
-			comboP.style.display="none";
-		}
-		if(classSelected == "Warrior"){
-			for(let i = 0; i<warriorSpells.length; i++){
-				warriorSpells[i].style.display="block";
-			}
-		}else{
-			for(let i = 0; i<warriorSpells.length; i++){
-				warriorSpells[i].style.display="none";
-			}
-		}
-		if(classSelected == "Mage"){
-			for(let i = 0; i<mageSpells.length; i++){
-				mageSpells[i].style.display="block";
-			}
-		}else{
-			for(let i = 0; i<mageSpells.length; i++){
-				mageSpells[i].style.display="none";
-			}
-		}
+	function abilityCreator(){
+        //first ability will always be auto attack
+        availableAbilities = [new Ability("Auto Attack", 0, "img/abilities/auto.png", "auto", 1)];
+ 
+        if(classSelected == classes.rogue){
+            availableAbilities.push(new RogueAbility("Sinister Strike", 30,"img/abilities/sins.png", "sins", 2, 0));
+            availableAbilities.push( new RogueAbility("Eviscerate", 30, "img/abilities/evis.png", "evis", 3, 1));
+        }
+        if(classSelected == classes.warrior){
+            availableAbilities.push( new WarriorAbility("Heroic Strike", 30, "img/abilities/heroic.png", "hs", 2));
+            availableAbilities.push(new WarriorAbility("Mortal Strike", 30,"img/abilities/mortal.png", "ms", 3));
+        }
+        if(classSelected == classes.mage){
+            availableAbilities.push(new MageAbility("Fireball", 30,"img/abilities/fireball.png", "fireball", 2));
+            availableAbilities.push( new MageAbility("Frostbolt", 30, "img/abilities/frostbolt.png", "frostbolt", 3));
+        }
 	}
+	
+	function abilityToHTML(divClass, divId, imgPath, pclass, pText) {
+        let div = document.createElement('div');
+        let img = document.createElement('img');
+        let p = document.createElement('p');
+ 
+        div.className = divClass;
+        img.src = imgPath;
+        div.id = divId;
+        p.className = pclass;
+        p.innerHTML = pText;
+ 
+        div.appendChild(img);
+        div.appendChild(p);
+        abilities.prepend(div);
+    }
 
 	// Death
 	function death(){
@@ -588,7 +619,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 			sp--;
 			atkMin = atk / 2;
 			atkMax = atk / 2;
-			if(classSelected == "Warrior"){
+			if(classSelected == classes.warrior){
 				atk+= 0.5;
 			}
 		}
@@ -603,7 +634,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 			sp--;
 			atkMin = atk / 2;
 			atkMax = atk / 2;
-			if(classSelected == "Rogue"){
+			if(classSelected == classes.rogue){
 				atk+= 0.5;
 			}
 		}
@@ -619,7 +650,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 			sp--;
 			spellAtkMax = int * 1.5;
 			spellAtk = Math.floor(spellAtkMax /2);
-			if(classSelected == "Mage"){
+			if(classSelected == classes.mage){
 				spellAtkMax+= 1;
 			}
 		}
@@ -639,17 +670,17 @@ document.addEventListener("DOMContentLoaded", () =>{
 
 	// Bar Handler
 	function barHandler(){
-		if(classSelected == "Mage"){
+		if(classSelected == classes.mage){
 			manaBarSel.style.display="block";
 		}else{
 			manaBarSel.style.display="none";
 		}
-		if(classSelected == "Rogue"){
+		if(classSelected == classes.rogue){
 			energyBarSel.style.display="block";
 		}else{
 			energyBarSel.style.display="none";
 		}
-		if(classSelected == "Warrior"){
+		if(classSelected == classes.warrior){
 			rageBarSel.style.display="block";
 		}else{
 			rageBarSel.style.display="none";
@@ -936,13 +967,13 @@ document.addEventListener("DOMContentLoaded", () =>{
 
 	function generator(){
 
-		if(classSelected == "Rogue"){
+		if(classSelected == classes.rogue){
 			energy+=20;
 			if(energy >= energyMax){
 				energy = energyMax;
 			}
 		}
-		if(classSelected == "Warrior"){
+		if(classSelected == classes.warrior){
 			rage+= 10;
 			if(rage >= rageMax){
 				rage = rageMax;
@@ -951,7 +982,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 				rage = 0;
 			}
 		}
-		if(classSelected == "Mage"){
+		if(classSelected == classes.mage){
 			mana+= int/3 + 4;
 			if(mana >= manaMax){
 				mana = manaMax;
@@ -1307,19 +1338,19 @@ document.addEventListener("DOMContentLoaded", () =>{
 					hp = hpMax;
 					save();
 				}
-				if(classSelected == "Rogue"){
+				if(classSelected == classes.rogue){
 					energy+=20;
 					if(energy >= energyMax){
 						energy = energyMax;
 					}
 				}
-				if(classSelected == "Warrior"){
+				if(classSelected == classes.warrior){
 					rage-=5;
 					if(rage <= 0){
 						rage = 0;
 					}
 				}
-				if(classSelected == "Mage" || "Warlock"){
+				if(classSelected == classes.mage || "Warlock"){
 					mana+= int;
 					if(mana >= manaMax){
 						mana = manaMax;
@@ -1346,10 +1377,15 @@ document.addEventListener("DOMContentLoaded", () =>{
 	leaderboard();
 	function leaderboard(){
 		let rank = 1;
-		characterdata.forEach(player => {
-			document.querySelector('#leaderboard').innerHTML+= `<p>` + rank + `. ` + player.character_name + ` ` + player.level + ` ` + player.class_name + `</p>`;
-			rank++;
-		});
+		try {
+			characterdata.forEach(player => {
+				document.querySelector('#leaderboard').innerHTML+= `<p>` + rank + `. ` + player.character_name + ` ` + player.level + ` ` + player.class_name + `</p>`;
+				rank++;
+			});
+		} catch (error) {
+			
+		}
+		
 	}
 
 	// Key Press functions and checker
@@ -1388,7 +1424,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 				autoAttack();
 			}
 
-			if(classSelected == "Rogue"){
+			if(classSelected == classes.rogue){
 				if(e.keyCode == '50'){
 					sinisterStrike();
 				}
@@ -1396,7 +1432,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 					eviscerate();
 				}
 			}
-			if(classSelected == "Warrior"){
+			if(classSelected == classes.warrior){
 				if(e.keyCode == '50'){
 					heroicStrike();
 				}
@@ -1404,7 +1440,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 					mortalStrike();
 				}
 			}
-			if(classSelected == "Mage"){
+			if(classSelected == classes.mage){
 				if(e.keyCode == '50'){
 					fireball();
 				}
@@ -1422,22 +1458,26 @@ document.addEventListener("DOMContentLoaded", () =>{
 
 	// Ability EventListeners
 	// General
-	document.querySelector("#auto").addEventListener('click', autoAttack)
+	//addListeners();
+	function addListeners(){
+		document.querySelector("#auto").addEventListener('click', autoAttack)
 
-	// Rogue
-	document.querySelector("#sins").addEventListener('click', sinisterStrike);
-
-	document.querySelector("#evis").addEventListener('click', eviscerate);
-
-	// Warrior
-	document.querySelector("#hs").addEventListener('click', heroicStrike);
-
-	document.querySelector("#ms").addEventListener('click', mortalStrike);
-
-	// Mage
-	document.querySelector("#fireball").addEventListener('click', fireball);
-
-	document.querySelector("#frostbolt").addEventListener('click', frostbolt);
+		if(classSelected == classes.rogue){
+			// Rogue
+			document.querySelector("#sins").addEventListener('click', sinisterStrike);
+			document.querySelector("#evis").addEventListener('click', eviscerate);
+		}
+		if(classSelected == classes.warrior){
+			// Warrior
+			document.querySelector("#hs").addEventListener('click', heroicStrike);
+			document.querySelector("#ms").addEventListener('click', mortalStrike);
+		}
+		if(classSelected == classes.mage){
+			// Mage
+			document.querySelector("#fireball").addEventListener('click', fireball);
+			document.querySelector("#frostbolt").addEventListener('click', frostbolt);
+		}
+	}
 	
 	// Flee function
 	creatureBox.style.visibility="hidden";
@@ -1633,16 +1673,16 @@ document.addEventListener("DOMContentLoaded", () =>{
 			expMax = Math.floor(expMax * 1.1);
 		}
 		if(level > levelPre){
-			if(classSelected == "Warrior"){
+			if(classSelected == classes.warrior){
 				hpMax+= 17;
 				atk++;
 			}
-			if(classSelected == "Mage"){
+			if(classSelected == classes.mage){
 				hpMax+= 8;
 				atk+= 0.5;
 				manaMax+= 12;
 			}
-			if(classSelected == "Rogue"){
+			if(classSelected == classes.rogue){
 				hpMax+= 9;
 				atk++;
 			}
@@ -1756,7 +1796,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 
 		// Restrictions & class ability checker
 		inventoryRestriction();
-		abilityUseable();
+		//abilityUseable();
 	}
 
 	// Save or loads ur game depending on what your localStorage contain
@@ -1766,6 +1806,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 	}else{
 		load();
 	}
+	abilityBarLoader();
 
 	// Level Selection & determine creature depending on level selected
 	for(let i = 0; i<mapSel.length; i++){

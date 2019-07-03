@@ -1,4 +1,5 @@
 class Quest {
+    
     //quest reward item could be food, potion or some item.
     killCount = 0;
 
