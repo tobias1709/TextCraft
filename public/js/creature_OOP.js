@@ -7,21 +7,21 @@ let creatureSelHpMax;
 let creatureSelSpeAtk;
 
 class Creature{
-	constructor(){
+	constructor(max, min, creatureName, creatureImage, creatureMap, creatureSpecial, specialRound, specialBonus){
 		this.creatureLevel = creatureSelLvl,
-		this.max = 3,
-		this.min = 1,
-		this.creatureName = "",
+		this.max = max,
+		this.min = min,
+		this.creatureName = creatureName,
 		this.creatureHp = creatureSelHp,
 		this.creatureHpMax = creatureSelHpMax,
 		this.creatureAtk = creatureSelAtk,
 		this.expGain = creatureSelExp,
 		this.goldGain = creatureSelGold,
-		this.creatureImage = "",
-		this.creatureMap = "",
+		this.creatureImage = creatureImage,
+		this.creatureMap = creatureMap,
 		this.creatureSpecialAtk = creatureSelSpeAtk,
-		this.creatureSpecial = "",
-		this.specialRound = 4,
-		this.specialBonus = 4
+		this.creatureSpecial = creatureSpecial
+		this.specialRound = specialRound,
+		this.specialBonus = specialBonus
 	}
 }

@@ -1,0 +1,19 @@
+<div id="selection">
+			<div class="nameSel">
+				<h2>
+					Choose a name:
+				</h2>
+				<input id="characterName" type="text" name="fname" autofocus="autofocus" onfocus="this.select()" placeholder="Character name">
+			</div>
+			<div class="classes">
+				<%- include('classes/warrior') %>
+				<%- include('classes/hunter') %>
+				<%- include('classes/mage') %>
+				<%- include('classes/rogue') %>
+				<%- include('classes/warlock') %>
+				<%- include('classes/shaman') %>
+				<%- include('classes/druid') %>
+				<%- include('classes/paladin') %>
+				<%- include('classes/priest') %>
+			</div>
+		</div>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="stylesheet" type="text/css" href="style.css?v0.1.1">
+	<link href="https://fonts.googleapis.com/css?family=Fira+Sans" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
+	<title>Textcraft</title>
+</head>
+
+<body>
+	<div id="wrapper">
+		<%- include('partials/selection') %>
+
+		<div id="game">
+			<div id="title">
+			</div>
+			<%- include('partials/lowLevels') %>
+			<div class="place">
+				<%- include('partials/character')%>
+				
+				<%- include('partials/console') %>
+				<div>
+					<%- include('partials/creature') %>
+					<%- include('partials/questlog') %>
+				</div>
+			</div>
+			
+			<%- include('partials/highLevels') %>
+
+			<div class="place">
+				<%- include('partials/equipment') %>
+
+				<%- include('partials/leaderboard') %>
+
+				<%- include('partials/shop') %>
+			</div>
+			<%- include('partials/absoluteIcons')%>
+		</div>
+	</div>
+	<%- include('partials/gamedata')%>
+	<%- include('partials/scripts') %>
+</body>
+</html>

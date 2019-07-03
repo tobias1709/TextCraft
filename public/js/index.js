@@ -16,15 +16,12 @@ document.addEventListener("DOMContentLoaded", () =>{
 	let classSelected;
 	let hp;
 	let hpMax;
-	let hpBar;
 	let mana;
 	let manaMax;
-	let manaBar;
 	let rage;
 	let rageMax;
 	let energy;
 	let energyMax;
-	let energyBar;
 	let availableAbilities;
 
 	// Inventory
@@ -50,7 +47,6 @@ document.addEventListener("DOMContentLoaded", () =>{
 	let atk;
 	let spellAtk;
 	let spellAtkMax;
-	let spellCost;
 	let sp;
 	let str;
 	let agi;
@@ -64,80 +60,39 @@ document.addEventListener("DOMContentLoaded", () =>{
 	let round = 0;
 	let zoneRan = 0;
 
+	// Classes
+	const classes = {
+		mage: "Mage",
+		rogue: "Rogue",
+		warrior: "Warrior"
+	}
+
 	// Object Oriented Programming
-	let murloc = new Creature();
-	murloc.max = 3;
-	murloc.min = 1;
-	murloc.creatureName = ["Murloc Warrior", "Murloc Oracle"];
-	murloc.creatureImage= ["img/creatures/murloc.png", "img/creatures/murlocOracle.png"];
-	murloc.creatureMap= "Elwynn Forest";
-	murloc.creatureSpecial= ["Fish Swing", "Frostbolt"];
-	murloc.specialRound= [4, 5];
-	murloc.specialBonus= [4, 6];
+	let murloc = new Creature(3, 1, ["Murloc Warrior", "Murloc Oracle"], ["img/creatures/murloc.png", "img/creatures/murlocOracle.png"], "Elwynn Forest", ["Fish Swing", "Frostbolt"], [4, 5], [4, 6]);
+	
+	let bandit = new Creature(6, 3, ["Bandit", "Boar"], ["img/creatures/bandit.png", "img/creatures/boar.png" ], "Westfall", ["Backstab", "Charge"], [2, 4], [2, 3]);
 
-	let bandit = new Creature();
-	bandit.max = 6;
-	bandit.min = 3;
-	bandit.creatureName = ["Bandit", "Boar"];
-	bandit.creatureImage= ["img/creatures/bandit.png", "img/creatures/boar.png" ];
-	bandit.creatureMap= "Westfall";
-	bandit.creatureSpecial= ["Backstab", "Charge"];
-	bandit.specialRound= [2, 4];
-	bandit.specialBonus= [2, 3];
+	let worgen = new Creature(9, 6, ["Worgen", "Wolf"], ["img/creatures/worgen.png", "img/creatures/wolf.png"], "Duskwood", ["Shred", "Rip"], [2, 3], [4, 5]);
 
-	let worgen = new Creature();
-	worgen.max = 9;
-	worgen.min = 6;
-	worgen.creatureName = ["Worgen", "Wolf"];
-	worgen.creatureImage= ["img/creatures/worgen.png", "img/creatures/wolf.png"];
-	worgen.creatureMap= "Duskwood";
-	worgen.creatureSpecial= ["Shred", "Rip"];
-	worgen.specialRound= [2, 3];
-	worgen.specialBonus= [4, 5];
+	let defias = new Creature(12, 9, ["Defias Pillager", "Defias Trapper"], ["img/creatures/pillager.png", "img/creatures/bandit.png"], "Deadmines", ["Fireball", "Backstab"], [6, 2], [14, 4]);
 
-	let defias = new Creature();
-	defias.max = 12;
-	defias.min = 9;
-	defias.creatureName = ["Defias Pillager", "Defias Trapper"];
-	defias.creatureImage= ["img/creatures/pillager.png", "img/creatures/bandit.png"];
-	defias.creatureMap= "Deadmines";
-	defias.creatureSpecial= ["Fireball", "Backstab"];
-	defias.specialRound= [6, 2];
-	defias.specialBonus= [14, 4];
+	let crocodile = new Creature(15, 12, ["Crocalisk", "Crimson Whelp"], ["img/creatures/croc.png", "img/creatures/whelp.png"], "Wetlands", ["Snap", "Spit Fire"], [3, 5], [6, 8]);
 
-	let crocodile = new Creature();
-	crocodile.max = 15;
-	crocodile.min = 12;
-	crocodile.creatureName = ["Crocalisk", "Crimson Whelp"];
-	crocodile.creatureImage= ["img/creatures/croc.png", "img/creatures/whelp.png"];
-	crocodile.creatureMap= "Wetlands";
-	crocodile.creatureSpecial= ["Snap", "Spit Fire"];
-	crocodile.specialRound= [3, 5];
-	crocodile.specialBonus= [6, 8];
-
-	let bear = new Creature();
-	bear.max = 18;
-	bear.min = 15;
-	bear.creatureName = ["Bear", "Raptor"];
-	bear.creatureImage= ["img/creatures/bear.png", "img/creatures/raptor.png"];
-	bear.creatureMap= "Hillsbrad";
-	bear.creatureSpecial= ["Swipe", "Ravage"];
-	bear.specialRound= [2, 4];
-	bear.specialBonus= [4, 7];
+	let bear = new Creature(18, 15, ["Bear", "Raptor"], ["img/creatures/bear.png", "img/creatures/raptor.png"], "Hillsbrad", ["Swipe", "Ravage"], [2, 4], [4, 7]);
 
 	let lizard = new Creature();
 	lizard.max = 21;
 	lizard.min = 18;
-	lizard.creatureName = ["Basilisk"];
-	lizard.creatureImage= ["img/creatures/lizard.png"];
+	lizard.creatureName = ["Basilisk", "Serpent"];
+	lizard.creatureImage= ["img/creatures/lizard.png", "img/creatures/lizard.png"];
 	lizard.creatureMap= "Thousand Needles";
-	lizard.creatureSpecial= ["Stone Gaze"];
-	lizard.specialRound= [4];
-	lizard.specialBonus= [8];
+	lizard.creatureSpecial= ["Stone Gaze", "Lightning Bolt"];
+	lizard.specialRound= [4, 3];
+	lizard.specialBonus= [8, 6];
 
 	let cenutaur = new Creature();
-	cenutaur.max = 24;
-	cenutaur.min = 21;
+	cenutaur.max = 24; 
+	cenutaur.min = 21; 
 	cenutaur.creatureName = ["Cenutaur"];
 	cenutaur.creatureImage= ["img/creatures/dev.png"];
 	cenutaur.creatureMap= "Maraudon";
@@ -161,7 +116,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 	troll.creatureName = ["Witch Doctor"];
 	troll.creatureImage= ["img/creatures/witchdoctor.png"];
 	troll.creatureMap= ["Zul'Farak"];
-	troll.creatureSpecial= "Voodoo";
+	troll.creatureSpecial= ["Hex"];
 	troll.specialRound= [10];
 	troll.specialBonus= [20];
 
@@ -171,7 +126,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 	warGolem.creatureName = ["War Golem"];
 	warGolem.creatureImage= ["img/creatures/mudgolem.png"];
 	warGolem.creatureMap= "Searing Gorge";
-	warGolem.creatureSpecial= ["ThunderStump"];
+	warGolem.creatureSpecial= ["Thunder Stump"];
 	warGolem.specialRound= [5];
 	warGolem.specialBonus= [10];
 
@@ -309,7 +264,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 	let characterStorage = "playerData";
 
 	// Stats
-	let stat = [atk, spellAtk, spellAtkMax, spellCost, sp, str, agi, int, sta];
+	let stat = [atk, spellAtk, spellAtkMax, sp, str, agi, int, sta];
 	let statString = JSON.stringify(stat);
 	let statStorage = "statData";
 
@@ -347,9 +302,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 
 	// Stats
 	let spSel = document.querySelector("#sp");
-	let atkSel = document.querySelector("#atk");
 	let atkMaxSel = document.querySelector("#atkMax");
-	let spellAtkSel = document.querySelector("#spellAtk");
 	let spellAtkMaxSel = document.querySelector("#spellAtkMax");
 	let strSel = document.querySelector("#str");
 	let agiSel = document.querySelector("#agi");
@@ -372,9 +325,6 @@ document.addEventListener("DOMContentLoaded", () =>{
 	let fightBook = document.querySelector("#fightbook");
 
 	// Quest
-	let quest_obj_1Sel = document.querySelector("#quest_obj_1");
-
-	let quest_req_1Sel = document.querySelector("#quest_req_1");
 
 	// Inventory
 	let hPotSel = document.querySelector("#hPot");
@@ -440,8 +390,6 @@ document.addEventListener("DOMContentLoaded", () =>{
 			return false;
 		}
 	}	
-	
-	
 
 	// Generator creatures after level
 	RandomLevel(creatureList[creatureRan].max, creatureList[creatureRan].min);
@@ -479,7 +427,6 @@ document.addEventListener("DOMContentLoaded", () =>{
 		creatureRan = 0;
 		creatureMap = 0;
 		// Spell & Skill
-		spellCost = [0, 14, 26];
 		sp = 0;
 		//abilityUseable();
 		updater();
@@ -498,7 +445,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 			classSelected = classes.warrior;
 			classSave = true;
 			// Character
-			hpMax = 99;
+			hpMax = 154;
 			hp = hpMax;
 			rage = 0;
 			rageMax = 100;
@@ -532,7 +479,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 			mana = manaMax;
 			energy = 0;
 			energyMax = 0;
-			hpMax = 91;
+			hpMax = 122;
 			hp = hpMax;
 			// Extra inventory
 			mPot = 1;
@@ -550,7 +497,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 		}
 	});
 
-	// Mage
+	// Rogue
 	document.querySelector("#rogue").addEventListener('click', () =>{
 		validator();
 		if(nameWritten == false){
@@ -559,7 +506,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 			classSelected = classes.rogue;
 			classSave = true;
 			// Character
-			hpMax = 92;
+			hpMax = 147;
 			hp = hpMax;
 			mana = 0;
 			manaMax = 0;
@@ -866,7 +813,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 		mapArrived = true;
 		mainLog = "You start your adventure in <span> Elwynn Forest.</span>";
 		if(classSave == true){
-			mainLog = "You return your adventure at <span>The " + creatureList[creatureRan].creatureMap + "</span>.";
+			mainLog = "You return your adventure in <span> " + creatureList[creatureRan].creatureMap + "</span>.";
 		}
 		RandomLevel(creatureList[creatureRan].max, creatureList[creatureRan].min);
 		logger();
@@ -1053,20 +1000,22 @@ document.addEventListener("DOMContentLoaded", () =>{
 				x.killCount++;
 				if(x.killCount == x.creatureKillsRequired){
 					gold += x.questRewardGold;
+					exp += x.questRewardExp;
 					activeQuest.splice(activeQuest.indexOf(x), 1);
-					mainLog = "<b>You completed a quest!</b>";
+					mainLog = "<b>You completed a quest and gaiend " + x.questRewardGold + "g and " + x.questRewardExp + " exp!</b>";
 					logger();
 				}
 				updateQuests();
 			}
 		});
 	}
-
+	
 	function addQuests(i){
 		activeQuest = [];
 		creatureList[i].creatureName.forEach(x => {
 			let killCount = Math.floor(Math.random() * Math.floor(4) + 2);
-			activeQuest.push(new Quest("Kill " + killCount + " " + x + "s", killCount + Math.floor(Math.random() * Math.floor(3)), null, x, killCount));
+			console.log(creatureList[creatureRan].expGain);
+			activeQuest.push(new Quest("Kill " + killCount + " " + x + "s", killCount + Math.floor(Math.random() * Math.floor(3)), null, x, killCount, expMax*0.1*killCount));
 		});
 		updateQuests();
 	}
@@ -1084,9 +1033,6 @@ document.addEventListener("DOMContentLoaded", () =>{
 			let questPara = document.createElement("p");
 			questPara.innerHTML = x.questName;
 			questClass[0].appendChild(questPara);
-
-			mainLog = "New quest: " + x.questName + "!";
-			logger();
 		});
 	}
 
@@ -1170,6 +1116,40 @@ document.addEventListener("DOMContentLoaded", () =>{
 		cooldownCount--;
 		if(cooldownCount <= 0){
 			cooldownCount = 0;
+		}
+	}
+
+	function abilityToHTML(divClass, divId, imgPath, pclass, pText) {
+        let div = document.createElement('div');
+        let img = document.createElement('img');
+        let p = document.createElement('p');
+
+         div.className = divClass;
+        img.src = imgPath;
+        div.id = divId;
+        p.className = pclass;
+        p.innerHTML = pText;
+
+        div.appendChild(img);
+        div.appendChild(p);
+        abilities.prepend(div);
+	}
+	
+	function abilityCreator(){
+
+		availableAbilities = [new Ability("Auto Attack", 0, "img/abilities/auto.png", "auto", 1)];
+
+		if(classSelected == classes.rogue){
+			availableAbilities.push(new RogueAbility("Sinister Strike", 30,"img/abilities/sins.png", "sins", 2, 0));
+            availableAbilities.push( new RogueAbility("Eviscerate", 30, "img/abilities/evis.png", "evis", 3, 1));
+        }
+        if(classSelected == classes.warrior){
+            availableAbilities.push( new WarriorAbility("Heroic Strike", 30, "img/abilities/heroic.png", "hs", 2));
+            availableAbilities.push(new WarriorAbility("Mortal Strike", 30,"img/abilities/mortal.png", "ms", 3));
+        }
+        if(classSelected == classes.mage){
+            availableAbilities.push(new MageAbility("Fireball", 30,"img/abilities/fireball.png", "fireball", 2));
+            availableAbilities.push( new MageAbility("Frostbolt", 30, "img/abilities/frostbolt.png", "frostbolt", 3));
 		}
 	}
 
@@ -1386,29 +1366,8 @@ document.addEventListener("DOMContentLoaded", () =>{
 		}, 2000);
 	} 
 
-
-	// Leaderboard
-
-	let firstName = document.querySelector("#first");
-	let firstLevel = document.querySelector("#firstLvl");
-	let firstClass = document.querySelector("#firstClass");
-	let secondName = document.querySelector("#second");
-	let secondLevel = document.querySelector("#secondLvl");
-	let secondClass = document.querySelector("#secondClass");
-	let thirdName = document.querySelector("#third");
-	let thirdLevel = document.querySelector("#thirdLvl");
-	let thirdClass = document.querySelector("#thirdClass");
-	let fourName = document.querySelector("#four");
-	let fourLevel = document.querySelector("#fourLvl");
-	let fourClass = document.querySelector("#fourClass");
-	let fiveName = document.querySelector("#five");
-	let fiveLevel = document.querySelector("#fiveLvl");
-	let fiveClass = document.querySelector("#fiveClass");
-	
-
-
-	// Used to get information from my database, currently under development (Fetch work, backend doesn't)
-	// fetch("http://boxcode.dk/getAllUsers")
+	// // Used to get information from my database, currently under development (Fetch work, backend doesn't)
+	// fetch("http://localhost:3000/leaderboard")
 	// .then((response) => {
 	// 	return response.json();
 	// })
@@ -1416,28 +1375,15 @@ document.addEventListener("DOMContentLoaded", () =>{
 	// 	leaderboard(users);
 	// });
 
-	// Used to display leaderboard from database (Working)
-	function leaderboard(users){
-		// First place
-		firstName.innerHTML = users[0].name;
-		firstLevel.innerHTML = users[0].level;
-		firstClass.innerHTML = users[0].class;
-		// Second place
-		secondName.innerHTML = users[1].name;
-		secondLevel.innerHTML = users[1].level;
-		secondClass.innerHTML = users[1].class;
-		// Third place
-		thirdName.innerHTML = users[2].name;
-		thirdLevel.innerHTML = users[2].level;
-		thirdClass.innerHTML = users[2].class;
-		// Fourth place
-		fourName.innerHTML = users[3].name;
-		fourLevel.innerHTML = users[3].level;
-		fourClass.innerHTML = users[3].class;
-		// Fifth place
-		fiveName.innerHTML = users[4].name;
-		fiveLevel.innerHTML = users[4].level;
-		fiveClass.innerHTML = users[4].class;
+
+	// Used to display leaderboard from database
+	leaderboard();
+	function leaderboard(){
+		let rank = 1;
+		characterdata.forEach(player => {
+			document.querySelector('#leaderboard').innerHTML+= `<p>` + rank + `. ` + player.character_name + ` ` + player.level + ` ` + player.class_name + `</p>`;
+			rank++;
+		});
 	}
 
 	// Key Press functions and checker
@@ -1450,27 +1396,6 @@ document.addEventListener("DOMContentLoaded", () =>{
 	// Make first letter of all names uppercase
 	String.prototype.capitalize = () => {
 		return nameChar.charAt(0).toUpperCase() + nameChar.slice(1);
-	}
-
-	// Test zone
-	let activePlayers = [
-		{
-			name: "Elwynn Forest",
-			players: [" Defuzed", " Ariande"]
-		},
-		{
-			name: "Westfall",
-			players: [" Nixx", " Bobby"]
-		}
-	];
-
-	function getPlayer(playerMap){
-		for(let i=0; i < activePlayers.length; i++){
-			if(playerMap == activePlayers[i].name){
-				mainLog = "The following players are in " + creatureList[creatureRan].creatureMap + " right now: <b>" + activePlayers[i].players +  ".</b>";
-				logger();
-			}
-		}
 	}
 
 	// Test zone end
@@ -1622,71 +1547,80 @@ document.addEventListener("DOMContentLoaded", () =>{
 	}
 
 	function save(){
-		// Character
-		character = [hp, hpMax, mana, manaMax, energy, energyMax, classSave, classSelected, creatureRan, nameChar, rage, rageMax];
-		characterString = JSON.stringify(character);
-		localStorage.setItem(characterStorage, characterString);
+		
 
-		// Stats
-		stat = [atk, spellAtk, spellAtkMax, spellCost, sp, str, agi, int, sta];
-		statString = JSON.stringify(stat);
-		localStorage.setItem(statStorage, statString);
 
-		// Level
-		lvl = [levelPre, level, exp, expMax];
-		lvlString = JSON.stringify(lvl);
-		localStorage.setItem(lvlStorage, lvlString);
 
-		// Inventory
-		inv = [hPot, mPot, gold, food, water];
-		invString = JSON.stringify(inv);
-		localStorage.setItem(invStorage, invString);
+
+
+
+		// // Character
+		// character = [hp, hpMax, mana, manaMax, energy, energyMax, classSave, classSelected, creatureRan, nameChar, rage, rageMax];
+		// characterString = JSON.stringify(character);
+		// localStorage.setItem(characterStorage, characterString);
+
+		// // Stats
+		// stat = [atk, spellAtk, spellAtkMax, sp, str, agi, int, sta];
+		// statString = JSON.stringify(stat);
+		// localStorage.setItem(statStorage, statString);
+
+		// // Level
+		// lvl = [levelPre, level, exp, expMax];
+		// lvlString = JSON.stringify(lvl);
+		// localStorage.setItem(lvlStorage, lvlString);
+
+		// // Inventory
+		// inv = [hPot, mPot, gold, food, water];
+		// invString = JSON.stringify(inv);
+		// localStorage.setItem(invStorage, invString);
 	}
 
-	function load() {
-		let charData = JSON.parse(localStorage.getItem(characterStorage));
-		let statData = JSON.parse(localStorage.getItem(statStorage));
-		let lvlData = JSON.parse(localStorage.getItem(lvlStorage));
-		let invData = JSON.parse(localStorage.getItem(invStorage));
+	// fetchPlayerData();
+	// function fetchPlayerData() {
+	// 	fetch(("http://localhost:3000/players"))
+	// 	.then((response) => {
+	// 		return response.json();
+	// 	})
+	// 	.then((playerdata) => {
+	// 		console.log(playerdata);
+	// 		load();
+	// 	});
+	// }
 
-		if(charData != null){
-			hp = charData[0];
-			hpMax = charData[1];
-			mana = charData[2];
-			manaMax = charData[3];
-			energy = charData[4];
-			energyMax = charData[5];
-			classSave = charData[6];
-			classSelected = charData[7];
-			creatureRan = charData[8];
-			creatureMap = charData[8];
-			nameChar = charData[9];
-			rage = charData[10];
-			rageMax = charData[11];
-		}
-		if(statData != null){
-			atk = statData[0];
-			spellAtk = statData[1];
-			spellAtkMax = statData[2];
-			spellCost = statData[3];
-			sp = statData[4];
-			str = statData[5];
-			agi = statData[6];
-			int = statData[7];
-			sta = statData[8]
-		}
-		if(lvlData != null){
-			levelPre = lvlData[0];
-			level = lvlData[1];
-			exp = lvlData[2];
-			expMax = lvlData[3];
-		}
-		if(invData != null){
-			hPot = invData[0];
-			mPot = invData[1];
-			gold = invData[2];
-			food = invData[3];
-			water = invData[4];
+	function load() {
+		// index will depend on account id when logging in
+		if(characterdata != null){
+			console.log(characterdata);
+			hp = characterdata[0].hp;
+			hpMax = characterdata[0].hpMax;
+			mana = characterdata[0].mana;
+			manaMax = characterdata[0].manaMax;
+			energy = characterdata[0].energy;
+			energyMax = characterdata[0].energyMax;
+			classSave = characterdata[0].extra_save;
+			classSelected = characterdata[0].class_name;
+			creatureRan = characterdata[0].extra_random;
+			creatureMap = characterdata[0].extra_random;
+			nameChar = characterdata[0].character_name;
+			rage = characterdata[0].rage;
+			rageMax = characterdata[0].rageMax;
+			atk = characterdata[0].attack_power;
+			spellAtk = characterdata[0].spell_power / 2;
+			spellAtkMax = characterdata[0].spell_power;
+			sp = characterdata[0].skill_points;
+			str = characterdata[0].strength;
+			agi = characterdata[0].agility;
+			int = characterdata[0].intellect;
+			sta = characterdata[0].stamina;
+			levelPre = characterdata[0].levelPre;
+			level = characterdata[0].level;
+			exp = characterdata[0].exp;
+			expMax = characterdata[0].expMax;
+			hPot = characterdata[0].health_potion;
+			mPot = characterdata[0].mana_potion;
+			gold = characterdata[0].currency;
+			food = characterdata[0].food;
+			water = characterdata[0].water;
 		}
 		barHandler();
 	}
@@ -1777,7 +1711,8 @@ document.addEventListener("DOMContentLoaded", () =>{
 	function updater(){
 		startUp();
 		levelUp();
-
+		barHandler();
+		
 		// Character
 		classPicked.innerHTML = classSelected;
 		characterName.innerHTML = nameChar;
@@ -1811,7 +1746,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 		root.style.setProperty('--specialRoundBar', percentRound + "%");
 
 		// Update barhandler
-		barHandler();
+		
 
 		// Level
 		levelSel.innerHTML = level;
@@ -1878,10 +1813,9 @@ document.addEventListener("DOMContentLoaded", () =>{
 				creatureMap = i;
 				creatureRan = creatureMap;
 				mapArrived = true;
-				mainLog = "You travelled to <span>The " + creatureList[i].creatureMap + "</span>.";
+				mainLog = "You travelled to <span> " + creatureList[i].creatureMap + "</span>.";
 				logger();
 				addQuests(i);
-				getPlayer(creatureList[i].creatureMap);
 				RandomLevel(creatureList[creatureRan].max, creatureList[creatureRan].min);
 				if(level < i){
 					mainLog = "You hear a voice in your head saying:";
