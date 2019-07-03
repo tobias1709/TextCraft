@@ -4,11 +4,8 @@ document.addEventListener("DOMContentLoaded", () =>{
 	let questKillClass = document.getElementsByClassName("questAmount");
 	let questClass = document.getElementsByClassName("objective");
 
-	const classes = {
-		mage: "Mage",
-		rogue: "Rogue",
-		warrior: "Warrior"
-	}
+	//loaded character data
+	let characterdata;
 
 	// Character
 	let nameWritten = false;
@@ -1380,10 +1377,15 @@ document.addEventListener("DOMContentLoaded", () =>{
 	leaderboard();
 	function leaderboard(){
 		let rank = 1;
-		characterdata.forEach(player => {
-			document.querySelector('#leaderboard').innerHTML+= `<p>` + rank + `. ` + player.character_name + ` ` + player.level + ` ` + player.class_name + `</p>`;
-			rank++;
-		});
+		try {
+			characterdata.forEach(player => {
+				document.querySelector('#leaderboard').innerHTML+= `<p>` + rank + `. ` + player.character_name + ` ` + player.level + ` ` + player.class_name + `</p>`;
+				rank++;
+			});
+		} catch (error) {
+			
+		}
+		
 	}
 
 	// Key Press functions and checker
